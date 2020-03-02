@@ -1,6 +1,6 @@
 const User = require('./user');
-const Order = require('./order');
-const Boat = require('./boat');
+// const Order = require('./order');
+// const Boat = require('./boat');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -23,6 +23,4 @@ const Boat = require('./boat');
 
 module.exports = {
   User,
-  Order,
-  Boat,
 };
