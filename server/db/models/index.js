@@ -16,10 +16,10 @@ const Boat = require('./boat');
  * instead of: const User = require('../db/models/user')
  */
 
-Boat.hasMany(Order, { through: 'OrderItems' });
-Order.hasMany(Boat, { through: 'OrderItems' });
+// Boat.hasMany(Order, { through: 'OrderItems' });
+// Order.hasMany(Boat, { through: 'OrderItems' });
 
-User.hasMany(Order);
+// User.hasMany(Order);
 
 module.exports = {
   User,
