@@ -1,4 +1,6 @@
-# Boilermaker Tina Sosa, Natasha Whitney
+# Boilermaker - Joshua Skootsky, Tina Sosa, and Natasha Whitney.
+
+# BOATS ARE THE BEST
 
 _Good things come in pairs_
 
