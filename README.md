@@ -1,4 +1,5 @@
-# Boilermaker
+# Boilermaker - Joshua Skootsky, Tina S, and Natasha W.
+# BOATS ARE THE BEST
 
 _Good things come in pairs_
 
