@@ -34,4 +34,27 @@ describe('Boat model', () => {
       });
     }); // end describe basic fields
   }); // end describe initializations
+
+  describe('validations', () => {
+    let titanic;
+
+    beforeEach(async () => {
+      titanic = {
+        name: 'RMS Titanic',
+        description: 'A ship that cannot be sunk',
+        cost: 1001,
+      };
+    });
+
+    it('name cannot be null or an empty string', async () => {
+      titanic.name = null;
+      try {
+        const emptyNameBoat = await Boat.create(titanic);
+        if (emptyNameBoat)
+          throw Error('Validation should have failed with empty string');
+      } catch (err) {
+        expect(err.message).to.not.have.string('Validation should have failed');
+      }
+    });
+  }); // end describe validations
 });
