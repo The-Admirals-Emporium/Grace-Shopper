@@ -59,8 +59,9 @@ describe('Boat >-< Order Association', () => {
       expect(boats.length).to.equal(2);
     });
   });
+
   describe('OrderItems', () => {
-    it('order items contain a boat id, an order id, and a default quantity of 0', async () => {
+    it('order items contain a boat id, an order id, and a default quantity of 1', async () => {
       const boat = await Boat.create(titanic);
       const order = await Order.create({ status: 'PENDING' });
 
@@ -70,7 +71,7 @@ describe('Boat >-< Order Association', () => {
       const boatsWithOrderItems = boats.filter(b => {
         const orders = b.orders;
         const ordersWithOrderItems = orders.filter(
-          o => o.orderitems.quantity === 0
+          o => o.orderitems.quantity === 1
         );
         return ordersWithOrderItems.length > 0;
       });
@@ -79,6 +80,7 @@ describe('Boat >-< Order Association', () => {
 
     it('you can set the quantity of an order item', async () => {
       const boat = await Boat.create(titanic);
+
       const order = await Order.create({ status: 'PENDING' });
 
       await boat.addOrder(order, { through: { quantity: 12 } });
@@ -87,6 +89,31 @@ describe('Boat >-< Order Association', () => {
       const orderQuantity = boatOrders[0].orderitems.quantity;
 
       expect(orderQuantity).to.equal(12);
+    });
+  });
+
+  describe('Order instance method', () => {
+    it('If an order has no boats, the total is 0.0', async () => {
+      const order = await Order.create({ status: 'PENDING' });
+
+      await order.calculateTotal();
+
+      expect(order.total).to.deep.equal(0.0);
+    });
+
+    it('If an order has several boats, the total is the sum of the boat costs', async () => {
+      const order = await Order.create({ status: 'COMPLETED' });
+
+      const boat = await Boat.create(titanic);
+
+      const titanic2 = { ...titanic, cost: 1002 };
+      const boat2 = await Boat.create(Object.assign(titanic2));
+
+      await order.addBoats([boat, boat2]);
+
+      await order.calculateTotal();
+
+      expect(order.total).to.deep.equal(boat.cost + boat2.cost);
     });
   });
 });
