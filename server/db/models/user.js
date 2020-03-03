@@ -10,7 +10,8 @@ const User = db.define('user', {
   },
   username: {
     type: Sequelize.STRING,
-    allowNull: false,
+    unique: true,
+    // allowNull: false,
   },
   password: {
     type: Sequelize.STRING,
@@ -33,7 +34,7 @@ const User = db.define('user', {
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
-    allowNull: false,
+    // allowNull: false,
   },
 })
 
