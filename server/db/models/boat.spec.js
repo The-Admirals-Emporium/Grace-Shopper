@@ -10,7 +10,7 @@ describe('Boat model', () => {
   });
 
   describe('initializations', () => {
-    describe('name', () => {
+    describe('basic fields', () => {
       let titanic;
 
       beforeEach(async () => {
@@ -28,6 +28,6 @@ describe('Boat model', () => {
       it('returns false if the cost is incorrect', () => {
         expect(titanic.cost).to.be.equal(1001);
       });
-    }); // end describe('correctPassword')
-  }); // end describe('instanceMethods')
-}); // end describe('User model')
+    }); // end describe basic fields
+  }); // end describe initializations
+});
