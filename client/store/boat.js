@@ -5,6 +5,7 @@ import history from '../history';
  * ACTION TYPES
  */
 const GET_BOATS = 'GET_BOATS';
+const GET_SINGLE_BOAT = 'GET_SINGLE_BOAT';
 
 const initialState = {};
 
@@ -12,6 +13,10 @@ const initialState = {};
  * ACTION CREATORS
  */
 const getBoats = boats => ({ type: GET_BOATS, boats });
+const gotSingleBoat = boat => ({
+  type: GET_SINGLE_BOAT,
+  boat,
+});
 
 /**
  * THUNK CREATORS
@@ -22,6 +27,15 @@ export const fetchBoats = () => async dispatch => {
     dispatch(getBoats(data));
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const getSingleBoat = id => async dispatch => {
+  try {
+    const { data } = await axios.get(`/api/boats/${id}`);
+    dispatch(gotSingleBoat(data));
+  } catch (error) {
+    console.error(error);
   }
 };
 
