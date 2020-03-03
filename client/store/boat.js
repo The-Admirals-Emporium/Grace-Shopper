@@ -46,10 +46,10 @@ export const getSingleBoat = id => {
 /**
  * REDUCER
  */
-function boatsReducer(boats = [], action) {
+function allBoatsReducer(boats = [], action) {
   switch (action.type) {
     case GET_BOATS:
-      return { ...action.boats };
+      return action.boats;
     default:
       return boats;
   }
@@ -58,14 +58,14 @@ function boatsReducer(boats = [], action) {
 function singleBoatReducer(boat = {}, action) {
   switch (action.type) {
     case GET_SINGLE_BOAT:
-      return { ...action.boat };
+      return action.boat;
     default:
       return boat;
   }
 }
 
 const rootReducer = combineReducers({
-  allBoats: boatsReducer,
+  allBoats: allBoatsReducer,
   singleBoat: singleBoatReducer,
 });
 

@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import { expect } from 'chai';
-import { fetchBoats } from './boat';
+import { getAllBoats } from './boat';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import configureMockStore from 'redux-mock-store';
@@ -91,7 +91,7 @@ describe('thunk creators', () => {
         },
       ];
       mockAxios.onGet('/api/boats').replyOnce(200, fakeBoats);
-      await store.dispatch(fetchBoats());
+      await store.dispatch(getAllBoats());
       const actions = store.getActions();
       expect(actions[0].type).to.be.equal('GET_BOATS');
       expect(actions[0].boats).to.be.deep.equal(fakeBoats);
