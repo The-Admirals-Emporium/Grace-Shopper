@@ -19,7 +19,9 @@ const Order = db.define('order', {
     validate: {
       // replace with var require('address-validator');
       isValidShippingAddress(value) {
-        return value.length > 15;
+        console.log(value);
+        if (value.length < 15)
+          throw Error('Validation Error: shipping address is invalid');
       },
     },
   },
