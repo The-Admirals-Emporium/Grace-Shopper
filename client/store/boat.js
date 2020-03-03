@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import { combineReducers } from 'redux';
 
 /**
  * ACTION TYPES
@@ -13,6 +14,7 @@ const initialState = {};
  * ACTION CREATORS
  */
 const getBoats = boats => ({ type: GET_BOATS, boats });
+
 const gotSingleBoat = boat => ({
   type: GET_SINGLE_BOAT,
   boat,
@@ -21,7 +23,7 @@ const gotSingleBoat = boat => ({
 /**
  * THUNK CREATORS
  */
-export const fetchBoats = () => async dispatch => {
+export const getAllBoats = () => async dispatch => {
   try {
     const { data } = await axios.get('/api/boats');
     dispatch(getBoats(data));
@@ -30,20 +32,41 @@ export const fetchBoats = () => async dispatch => {
   }
 };
 
-export const getSingleBoat = id => async dispatch => {
-  try {
-    const { data } = await axios.get(`/api/boats/${id}`);
-    dispatch(gotSingleBoat(data));
-  } catch (error) {
-    console.error(error);
-  }
+export const getSingleBoat = id => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.get(`/api/boats/${id}`);
+      dispatch(gotSingleBoat(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 };
 
-export default function(state = initialState, action) {
+/**
+ * REDUCER
+ */
+function boatsReducer(boats = [], action) {
   switch (action.type) {
     case GET_BOATS:
-      return action.boats;
+      return { ...action.boats };
     default:
-      return state;
+      return boats;
   }
 }
+
+function singleBoatReducer(boat = {}, action) {
+  switch (action.type) {
+    case GET_SINGLE_BOAT:
+      return { ...action.boat };
+    default:
+      return boat;
+  }
+}
+
+const rootReducer = combineReducers({
+  allBoats: boatsReducer,
+  singleBoat: singleBoatReducer,
+});
+
+export default rootReducer;
