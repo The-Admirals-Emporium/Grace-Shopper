@@ -18,8 +18,8 @@ const Order = db.define('order', {
     type: Sequelize.STRING,
   },
   total: {
-    type: Sequelize.DECIMAL,
-    defaultValue: 0.0,
+    type: Sequelize.FLOAT,
+    defaultValue: -1,
   },
 });
 
