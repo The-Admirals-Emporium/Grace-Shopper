@@ -59,8 +59,9 @@ describe('Boat >-< Order Association', () => {
       expect(boats.length).to.equal(2);
     });
   });
+
   describe('OrderItems', () => {
-    it('order items contain a boat id, an order id, and a default quantity of 0', async () => {
+    it('order items contain a boat id, an order id, and a default quantity of 1', async () => {
       const boat = await Boat.create(titanic);
       const order = await Order.create({ status: 'PENDING' });
 
@@ -70,7 +71,7 @@ describe('Boat >-< Order Association', () => {
       const boatsWithOrderItems = boats.filter(b => {
         const orders = b.orders;
         const ordersWithOrderItems = orders.filter(
-          o => o.orderitems.quantity === 0
+          o => o.orderitems.quantity === 1
         );
         return ordersWithOrderItems.length > 0;
       });
