@@ -3,8 +3,19 @@ const db = require('../db');
 
 const Order = db.define('order', {
   status: {
-    type: Sequelize.STRING,
+    type: Sequelize.ENUM(
+      'PENDING',
+      'AWAITING PAYMENT',
+      'AWAITING FULFILLMENT',
+      'COMPLETED',
+      'SHIPPED',
+      'CANCELLED',
+      'REFUNDED'
+    ),
     allowNull: false,
+  },
+  shippingAddress: {
+    type: Sequelize.STRING,
   },
 });
 
