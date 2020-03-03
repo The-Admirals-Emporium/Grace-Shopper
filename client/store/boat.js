@@ -23,7 +23,7 @@ const gotSingleBoat = boat => ({
  */
 export const fetchBoats = () => async dispatch => {
   try {
-    const { data } = await axios.get('/boats/ROUTE/TODO/FIXME');
+    const { data } = await axios.get('/api/boats');
     dispatch(getBoats(data));
   } catch (err) {
     console.error(err);

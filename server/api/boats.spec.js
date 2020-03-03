@@ -16,7 +16,7 @@ describe('Boat routes', () => {
     const name = 'Titanic';
     const imageUrl = 'www.thebest.com/YUjdahf';
     const description = 'This boat was thought to be unsinkable';
-    const cost = 999999;
+    const cost = 9999999999999.58;
 
     beforeEach(() => {
       return Boat.create({
