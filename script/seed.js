@@ -7,6 +7,8 @@ const { User, Order } = require('../server/db/models');
 var ordersData = [
   { status: 'COMPLETED' },
   { status: 'PENDING' },
+  { status: 'SHIPPED' },
+  { status: 'CANCELLED' },
   { status: 'REFUNDED' },
 ];
 
