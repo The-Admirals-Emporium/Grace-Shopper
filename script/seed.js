@@ -36,7 +36,7 @@ var boatNames = [
 var boatsData = boatNames.map(name => ({
   name: name,
   description: '',
-  cost: Math.floor(Math.random() * 1000000),
+  cost: Math.random() * 1000000,
 }));
 
 async function seed() {
