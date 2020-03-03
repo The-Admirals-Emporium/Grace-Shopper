@@ -1,0 +1,12 @@
+diff a/server/db/models/user.spec.js b/server/db/models/user.spec.js	(rejected hunks)
+@@ -28,5 +28,5 @@ describe('User model', () => {
+-        expect(cody.correctPassword('bonez')).to.be.equal(false)
+-      })
+-    }) // end describe('correctPassword')
+-  }) // end describe('instanceMethods')
+-}) // end describe('User model')
++        expect(cody.correctPassword('bonez')).to.be.equal(false);
++      });
++    }); // end describe('correctPassword')
++  }); // end describe('instanceMethods')
++}); // end describe('User model')
