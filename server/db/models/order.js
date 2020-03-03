@@ -17,6 +17,10 @@ const Order = db.define('order', {
   shippingAddress: {
     type: Sequelize.STRING,
   },
+  total: {
+    type: Sequelize.DECIMAL,
+    defaultValue: 0.0,
+  },
 });
 
 module.exports = Order;
