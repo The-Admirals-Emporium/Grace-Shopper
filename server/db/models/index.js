@@ -23,4 +23,6 @@ User.hasMany(Order);
 
 module.exports = {
   User,
+  Boat,
+  Order,
 };
