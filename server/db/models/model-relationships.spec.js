@@ -59,4 +59,34 @@ describe('Boat >-< Order Association', () => {
       expect(boats.length).to.equal(2);
     });
   });
+  describe('OrderItems', () => {
+    it('order items contain a boat id, an order id, and a default quantity of 0', async () => {
+      const boat = await Boat.create(titanic);
+      const order = await Order.create({ status: 'PENDING' });
+
+      await boat.addOrder(order);
+
+      const boats = await Boat.findAll({ include: [Order] });
+      const boatsWithOrderItems = boats.filter(b => {
+        const orders = b.orders;
+        const ordersWithOrderItems = orders.filter(
+          o => o.orderitems.quantity === 0
+        );
+        return ordersWithOrderItems.length > 0;
+      });
+      expect(boatsWithOrderItems.length).to.equal(1);
+    });
+
+    it('you can set the quantity of an order item', async () => {
+      const boat = await Boat.create(titanic);
+      const order = await Order.create({ status: 'PENDING' });
+
+      await boat.addOrder(order, { through: { quantity: 12 } });
+
+      const boatOrders = await boat.getOrders();
+      const orderQuantity = boatOrders[0].orderitems.quantity;
+
+      expect(orderQuantity).to.equal(12);
+    });
+  });
 });
