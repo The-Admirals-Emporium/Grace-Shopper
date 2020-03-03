@@ -8,7 +8,10 @@ describe('User >-< Order Association', () => {
 
   describe('Sequelize Models', () => {
     it('a user may belong to many orders', async () => {
-      const user = await User.create({ email: 'natiwhitney@gmail.com' });
+      const user = await User.create({
+        username: 'nati',
+        email: 'natiwhitney@gmail.com',
+      });
       const orderInProgress = await Order.create({ status: 'PENDING' });
       const orderCompleted = await Order.create({ status: 'COMPLETED' });
       await user.addOrder([orderInProgress, orderCompleted]);
