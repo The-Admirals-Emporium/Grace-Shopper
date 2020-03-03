@@ -21,13 +21,42 @@ describe('User >-< Order Association', () => {
   });
 });
 
-//     it('a robot may belong to many projects', async () => {
-//       const openPodBayDoors = await Project.create({ title: 'Open the pod bay doors' })
-//       const makePizza = await Project.create({ title: 'Make pizza' })
-//       const hal9000 = await Robot.create({ name: 'HAL-9000' })
-//       await hal9000.addProjects([openPodBayDoors, makePizza])
-//       const hal9000sProjects = await hal9000.getProjects().map(title => title.title)
-//       expect(hal9000sProjects).to.deep.equal(['Open the pod bay doors', 'Make pizza'])
-//     })
+describe('Boat >-< Order Association', () => {
+  let titanic;
+  before(() => db.sync({ force: true }));
+  beforeEach(() => {
+    titanic = {
+      name: 'RMS Titanic',
+      description: 'A ship that cannot be sunk',
+      cost: 1001,
+    };
+  });
+  afterEach(() => db.sync({ force: true }));
 
-//   })
+  describe('Sequelize Models', () => {
+    it('a boat contains many orders', async () => {
+      const boat = await Boat.create(titanic);
+      const order = await Order.create({ status: 'PENDING' });
+      const order2 = await Order.create({ status: 'COMPLETED' });
+      await boat.addOrder(order);
+      await boat.addOrder(order2);
+
+      const orders = await boat.getOrders();
+      expect(orders.length).to.equal(2);
+    });
+
+    it('an order contains many boats', async () => {
+      const boat = await Boat.create(titanic);
+      const boat2 = await Boat.create(
+        Object.assign(titanic, { name: 'the sea sluts' })
+      );
+      const order = await Order.create({ status: 'PENDING' });
+
+      await order.addBoat(boat);
+      await order.addBoat(boat2);
+
+      const boats = await order.getBoats();
+      expect(boats.length).to.equal(2);
+    });
+  });
+});
