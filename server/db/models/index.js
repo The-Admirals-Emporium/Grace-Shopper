@@ -1,6 +1,6 @@
 const User = require('./user');
-// const Order = require('./order');
-// const Boat = require('./boat');
+const Order = require('./order');
+const Boat = require('./boat');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,10 +16,10 @@ const User = require('./user');
  * instead of: const User = require('../db/models/user')
  */
 
-// Boat.hasMany(Order, { through: 'OrderItems' });
-// Order.hasMany(Boat, { through: 'OrderItems' });
+Boat.belongsToMany(Order, { through: 'OrderItems' });
+Order.belongsToMany(Boat, { through: 'OrderItems' });
 
-// User.hasMany(Order);
+User.hasMany(Order);
 
 module.exports = {
   User,
