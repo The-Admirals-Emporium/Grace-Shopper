@@ -38,7 +38,7 @@ describe('Boat model', () => {
   describe('validations', () => {
     let titanic;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       titanic = {
         name: 'RMS Titanic',
         description: 'A ship that cannot be sunk',
