@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchBoats } from '../store';
+import { getAllBoats } from '../store';
 
 const BoatList = props => {
   useEffect(() => {
-    props.dispatch(fetchBoats());
+    props.dispatch(getAllBoats());
   }, []);
 
   // const boats = props.state.boat || [];
@@ -25,7 +25,7 @@ const BoatList = props => {
 
 const mapState = state => {
   return {
-    boats: state.boat,
+    boats: state.boat.allBoats,
   };
 };
 const mapDispatch = null;

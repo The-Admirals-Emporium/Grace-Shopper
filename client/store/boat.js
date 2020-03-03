@@ -49,7 +49,7 @@ export const getSingleBoat = id => {
 function boatsReducer(boats = [], action) {
   switch (action.type) {
     case GET_BOATS:
-      return { ...action.boats };
+      return action.boats;
     default:
       return boats;
   }
