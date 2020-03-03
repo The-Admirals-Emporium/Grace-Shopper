@@ -10,6 +10,13 @@ const OrderItems = require('./orderitems');
  *    BlogPost.belongsTo(User)
  */
 
+/** Add instance methods here **/
+
+Order.prototype.calculateTotal = async function() {
+  const boats = await this.getBoats();
+
+  this.total = boats.reduce((currTotal, boat) => currTotal + boat.cost, 0.0);
+};
 /**
  * We'll export all of our models here, so that any time a module needs a model,
  * we can just require it from 'db/models'
