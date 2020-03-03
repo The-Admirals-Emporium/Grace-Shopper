@@ -75,6 +75,30 @@ async function seed() {
 
   console.log(`seeded ${boats.length} boats with no orders`);
 
+  const dbUsers = await User.findAll();
+  const userIds = dbUsers.map(user => user.id);
+  const quantities = boatsWithOrdersData.map(_ =>
+    Math.floor(Math.random() * boatsWithOrdersData.length)
+  );
+
+  const boatsWithOrders = await Promise.map(boatsWithOrdersData, function(
+    boat,
+    ind
+  ) {
+    return db.model('boat').create(
+      Object.assign(boat, {
+        orders: ordersData
+          .slice(ind)
+          .map(order => Object.assign(order, { userId: userIds[ind] })),
+      }),
+      {
+        include: [Order],
+      }
+    );
+  });
+
+  console.log(`seeded ${boatsWithOrders.length} boats with orders`);
+
   console.log(`seeded successfully`);
 }
 
