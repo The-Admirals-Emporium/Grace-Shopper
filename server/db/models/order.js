@@ -16,6 +16,12 @@ const Order = db.define('order', {
   },
   shippingAddress: {
     type: Sequelize.STRING,
+    validate: {
+      // replace with var require('address-validator');
+      isValidShippingAddress(value) {
+        return value.length > 15;
+      },
+    },
   },
   total: {
     type: Sequelize.FLOAT,

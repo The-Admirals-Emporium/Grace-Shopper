@@ -18,10 +18,21 @@ describe('Order model', () => {
     });
 
     it('status can only be an enum value', async () => {
-      order.name = 'NOT-IN-ENUM';
+      order.status = 'NOT-IN-ENUM';
       try {
-        const orderStatusNotInEnum = await Order.create(orderStatusNotInEnum);
+        const orderStatusNotInEnum = await Order.create(order);
         if (orderStatusNotInEnum)
+          throw Error('Validation should have failed with status not in enum');
+      } catch (err) {
+        expect(err.message).to.not.have.string('Validation should have failed');
+      }
+    });
+
+    it('shipping address is valid', async () => {
+      order.shippingAddress = 'too short';
+      try {
+        const orderInvalidShipping = await Order.create(order);
+        if (orderInvalidShipping)
           throw Error('Validation should have failed with status not in enum');
       } catch (err) {
         expect(err.message).to.not.have.string('Validation should have failed');
