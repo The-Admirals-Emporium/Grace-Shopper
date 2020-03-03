@@ -28,6 +28,10 @@ describe('Boat model', () => {
       it('returns false if the cost is incorrect', () => {
         expect(titanic.cost).to.be.equal(1001);
       });
+
+      it('return default value for imageUrl if no value is set', () => {
+        expect(titanic.imageUrl).to.be.equal('');
+      });
     }); // end describe basic fields
   }); // end describe initializations
 });
