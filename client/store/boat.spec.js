@@ -94,7 +94,7 @@ describe('thunk creators', () => {
       await store.dispatch(fetchBoats(fakeBoats));
       const actions = store.getActions();
       expect(actions[0].type).to.be.equal('GET_BOATS');
-      // expect(actions[0].boats).to.be.deep.equal(fakeUser);
+      expect(actions[0].boats).to.be.deep.equal(fakeBoats);
     });
   });
 });
