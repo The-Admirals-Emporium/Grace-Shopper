@@ -2,20 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchBoats } from '../store';
 
-let fakeBoats = [
-  'boat1',
-  'Adnan',
-  'Adrian',
-  'Adrien',
-  'Aedan',
-  'Aedin',
-  'Aedyn',
-  'Aeron',
-  'Afonso',
-  'Ahmad',
-  'Ahmed',
-];
-
 const BoatList = props => {
   useEffect(() => {
     props.dispatch(fetchBoats());
@@ -23,7 +9,7 @@ const BoatList = props => {
 
   // const boats = props.state.boat || [];
   console.log(props, 'props in BoatList');
-  let boats = fakeBoats;
+  let boats = [];
   if (props.boats.length > 0) boats = props.boats;
   return (
     <div>
