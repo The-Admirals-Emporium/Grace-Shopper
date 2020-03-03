@@ -23,9 +23,9 @@ const gotSingleBoat = boat => ({
 /**
  * THUNK CREATORS
  */
-export const fetchBoats = () => async dispatch => {
+export const getAllBoats = () => async dispatch => {
   try {
-    const { data } = await axios.get('/boats/ROUTE/TODO/FIXME');
+    const { data } = await axios.get('/api/boats');
     dispatch(getBoats(data));
   } catch (err) {
     console.error(err);
@@ -49,7 +49,7 @@ export const getSingleBoat = id => {
 function boatsReducer(boats = [], action) {
   switch (action.type) {
     case GET_BOATS:
-      return action.boats;
+      return { ...action.boats };
     default:
       return boats;
   }
@@ -58,7 +58,7 @@ function boatsReducer(boats = [], action) {
 function singleBoatReducer(boat = {}, action) {
   switch (action.type) {
     case GET_SINGLE_BOAT:
-      return action.boat;
+      return { ...action.boat };
     default:
       return boat;
   }

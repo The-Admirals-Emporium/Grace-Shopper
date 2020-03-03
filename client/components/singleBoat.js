@@ -12,12 +12,12 @@ class singleBoat extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('mapping state to props in single boat', state);
-  return {
-    boat: state.singleBoat,
-  };
-};
+// const mapStateToProps = state => {
+//   console.log('mapping state to props in single boat', state);
+//   return {
+//     boat: state.singleBoat,
+//   };
+// };
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -25,4 +25,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(singleBoat);
+export default connect(null, mapDispatchToProps)(singleBoat);
