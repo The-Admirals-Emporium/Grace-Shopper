@@ -20,6 +20,25 @@ var usersDataWithOrders = [
   { email: 'murphy@aol.com', password: '123' },
 ];
 
+var boatNames = [
+  'Aquaholic',
+  'Pearl',
+  'Forever Young',
+  'Second Chance',
+  'Squid Pro Quo',
+  'More Cowbell',
+  'Pegasus',
+  "Feelin' Nauti",
+  'Why Not',
+  'High Maintenance',
+];
+
+var boatsData = boatNames.map(name => ({
+  name: name,
+  description: '',
+  cost: Math.floor(Math.random() * 1000000),
+}));
+
 async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
@@ -41,6 +60,12 @@ async function seed() {
   });
 
   console.log(`seeded ${usersWithOrders.length} users with multiple orders`);
+
+  const boats = await Promise.map(boatsData, function(boat) {
+    return db.model('boat').create(boat);
+  });
+
+  console.log(`seeded ${boats.length} boats with no orders`);
 
   console.log(`seeded successfully`);
 }
