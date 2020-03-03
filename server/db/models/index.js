@@ -19,7 +19,7 @@ const Boat = require('./boat');
 Boat.belongsToMany(Order, { through: 'OrderItems' });
 Order.belongsToMany(Boat, { through: 'OrderItems' });
 
-// User.hasMany(Order);
+User.hasMany(Order);
 
 module.exports = {
   User,
