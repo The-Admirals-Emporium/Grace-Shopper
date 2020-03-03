@@ -91,7 +91,7 @@ describe('thunk creators', () => {
         },
       ];
       mockAxios.onGet('/api/boats').replyOnce(200, fakeBoats);
-      await store.dispatch(fetchBoats(fakeBoats));
+      await store.dispatch(fetchBoats());
       const actions = store.getActions();
       expect(actions[0].type).to.be.equal('GET_BOATS');
       expect(actions[0].boats).to.be.deep.equal(fakeBoats);
