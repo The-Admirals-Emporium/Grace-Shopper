@@ -56,5 +56,16 @@ describe('Boat model', () => {
         expect(err.message).to.not.have.string('Validation should have failed');
       }
     });
+
+    it('boat cost cannot be negative', async () => {
+      titanic.cost = -1000.0;
+      try {
+        const negativePriceBoat = await Boat.create(titanic);
+        if (negativePriceBoat)
+          throw Error('Validation should have failed with empty string');
+      } catch (err) {
+        expect(err.message).to.not.have.string('Validation should have failed');
+      }
+    });
   }); // end describe validations
 });

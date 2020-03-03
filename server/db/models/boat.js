@@ -21,6 +21,9 @@ const Boat = db.define('boat', {
   cost: {
     type: Sequelize.FLOAT,
     allowNull: false,
+    validate: {
+      min: 0.0,
+    },
   },
 });
 
