@@ -11,9 +11,12 @@ describe('User >-< Order Association', () => {
       const user = await User.create({ email: 'natiwhitney@gmail.com' });
       const orderInProgress = await Order.create({ status: 'PENDING' });
       const orderCompleted = await Order.create({ status: 'COMPLETED' });
-      await user.addOrders([orderInProgress, orderCompleted]);
-      const userOrders = await user.getOrders().map(order => order.status);
-      expect(userOrders).to.deep.equal(['PENDING', 'COMPLETED']);
+      await user.addOrder([orderInProgress, orderCompleted]);
+      const userOrders = await user.getOrders();
+      expect(userOrders.map(order => order.status)).to.deep.equal([
+        'PENDING',
+        'COMPLETED',
+      ]);
     });
   });
 });
