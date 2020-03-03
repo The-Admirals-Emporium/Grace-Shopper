@@ -35,7 +35,13 @@ var boatNames = [
   'High Maintenance',
 ];
 
-var boatsData = boatNames.map(name => ({
+var boatsData = boatNames.slice(0, 5).map(name => ({
+  name: name,
+  description: '',
+  cost: Math.random() * 1000000,
+}));
+
+var boatsWithOrdersData = boatNames.slice(5).map(name => ({
   name: name,
   description: '',
   cost: Math.random() * 1000000,
