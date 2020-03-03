@@ -14,6 +14,9 @@ const Order = db.define('order', {
     ),
     allowNull: false,
   },
+  shippingAddress: {
+    type: Sequelize.STRING,
+  },
 });
 
 module.exports = Order;
