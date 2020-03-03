@@ -5,4 +5,5 @@
  */
 export { default as Navbar } from './navbar';
 export { default as UserHome } from './user-home';
+export { default as BoatList } from './boatList';
 export { Login, Signup } from './auth-form';
