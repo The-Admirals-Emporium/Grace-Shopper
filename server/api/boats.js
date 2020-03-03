@@ -14,3 +14,18 @@ router.get('/', async (req, res, next) => {
     next(err);
   }
 });
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const singleBoat = await Boat.findByPk(req.params.id);
+    if (!singleBoat) {
+      const error = Error('Sorry we currently do not have that boat listed');
+      error.status = 404;
+      return next(error);
+    } else {
+      res.json(singleBoat);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
