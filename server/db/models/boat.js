@@ -19,7 +19,7 @@ const Boat = db.define('boat', {
     allowNull: false,
   },
   cost: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
 });
