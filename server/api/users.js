@@ -10,7 +10,12 @@ router.get('/', async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ['id', 'email'],
     });
-    res.json(users);
+    //if not logged in or not admin cannot see users
+    if (!req.users || !req.isAdmin) {
+      return res.send(403);
+    } else {
+      res.json(users);
+    }
   } catch (err) {
     next(err);
   }

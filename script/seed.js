@@ -77,9 +77,6 @@ async function seed() {
 
   const dbUsers = await User.findAll();
   const userIds = dbUsers.map(user => user.id);
-  const quantities = boatsWithOrdersData.map(_ =>
-    Math.floor(Math.random() * boatsWithOrdersData.length)
-  );
 
   const boatsWithOrders = await Promise.map(boatsWithOrdersData, function(
     boat,
