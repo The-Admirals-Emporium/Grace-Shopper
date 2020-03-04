@@ -37,8 +37,8 @@ export const getSingleBoat = id => {
     try {
       const { data } = await axios.get(`/api/boats/${id}`);
       dispatch(gotSingleBoat(data));
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 };
