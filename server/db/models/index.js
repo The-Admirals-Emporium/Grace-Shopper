@@ -28,6 +28,7 @@ Boat.belongsToMany(Order, { through: OrderBoats });
 Order.belongsToMany(Boat, { through: OrderBoats });
 
 User.hasMany(Order);
+Order.belongsTo(User);
 
 module.exports = {
   User,
