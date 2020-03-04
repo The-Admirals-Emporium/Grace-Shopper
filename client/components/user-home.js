@@ -10,7 +10,7 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome sailor, {email}</h3>
+      <h3>Welcome sailor, {email}!</h3>
       <img
         src="https://res.cloudinary.com/bluewater/image/fetch/w_auto,h_1200,c_lfill,g_auto,f_auto/https://www.bluewateryachting.com/_uploads/website/brokerage/yachts/original/20190809195847000000_2131.jpg"
         size="100"
