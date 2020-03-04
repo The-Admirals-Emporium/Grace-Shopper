@@ -35,8 +35,13 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
-    // allowNull: false,
+    allowNull: false,
   },
+});
+
+User.addHook('beforeValidate', user => {
+  if (!user.username) user.username = user.email;
+  if (!user.isAdmin) user.isAdmin = false;
 });
 
 module.exports = User;

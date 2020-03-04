@@ -13,13 +13,13 @@ var ordersData = [
 ];
 
 var usersData = [
-  { username: 'cody', email: 'cody@email.com', password: '123' },
-  { username: 'murphy', email: 'murphy@email.com', password: '123' },
+  { email: 'cody@email.com', password: '123' },
+  { email: 'murphy@email.com', password: '123' },
 ];
 
 var usersDataWithOrders = [
-  { username: 'codyAOL', email: 'cody@aol.com', password: '123' },
-  { username: 'murphyAOL', email: 'murphy@aol.com', password: '123' },
+  { email: 'cody@aol.com', password: '123' },
+  { email: 'murphy@aol.com', password: '123' },
 ];
 
 var boatNames = [
