@@ -38,13 +38,13 @@ var boatNames = [
 var boatsData = boatNames.slice(0, 5).map(name => ({
   name: name,
   description: '',
-  cost: Math.random() * 1000000,
+  cost: Math.floor(Math.random() * 1000000),
 }));
 
 var boatsWithOrdersData = boatNames.slice(5).map(name => ({
   name: name,
   description: '',
-  cost: Math.random() * 1000000,
+  cost: Math.floor(Math.random() * 1000000),
 }));
 
 async function seed() {
