@@ -11,12 +11,9 @@ const Boat = db.define('boat', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    allowNull: false,
-    defaultValue: '',
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false,
   },
   cost: {
     type: Sequelize.FLOAT,
