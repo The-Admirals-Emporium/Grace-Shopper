@@ -39,6 +39,10 @@ const User = db.define('user', {
   },
 });
 
+User.addHook('beforeValidate', user => {
+  if (!user.username) user.username = user.email;
+});
+
 module.exports = User;
 
 /**
