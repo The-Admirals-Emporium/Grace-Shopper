@@ -16,12 +16,13 @@ const Boat = db.define('boat', {
     type: Sequelize.TEXT,
   },
   cost: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: 0.0,
     },
   },
+  // inventory
 });
 
 module.exports = Boat;
