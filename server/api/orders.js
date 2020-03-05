@@ -36,9 +36,7 @@ router.post('/', async (req, res, next) => {
   try {
     // let's send back all info for now
     const order = await Order.create({ include: { model: Boat } });
-
     order.total = (order.total / 100).toFixed(2);
-
     res.json(order);
   } catch (err) {
     next(err);
@@ -46,12 +44,21 @@ router.post('/', async (req, res, next) => {
 });
 
 // Update cart to have boat
-// router.put('/add', async (req, res, next) => {
-//   try {
-//     // req.params.id
-//     // let's send back all info for now
-//     res.json(order);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+// TODO: secure this route
+router.put('/:id/add', async (req, res, next) => {
+  try {
+    await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id/subtract', async (req, res, next) => {
+  try {
+    await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
