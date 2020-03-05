@@ -12,16 +12,13 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// Get a particular order with boats
-// We don't need ALL
+// To do: secure this route
 router.get('/:id', async (req, res, next) => {
   try {
     console.log(req.params.id);
     const order = await Order.findByPk(req.params.id, {
       include: { model: Boat },
     });
-
-    order.cost = '$ USD ' + (order.total / 100).toFixed(2);
 
     res.json(order);
   } catch (err) {
@@ -35,23 +32,39 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     // let's send back all info for now
-    const order = await Order.create({ include: { model: Boat } });
 
-    order.cost = '$ USD ' + (order.total / 100).toFixed(2);
+    const order = await Order.create();
 
-    res.json(order);
+    const orderWithBoats = await Order.findByPk(order.id, {
+      include: [
+        {
+          model: Boat,
+        },
+      ],
+    });
+
+    res.json(orderWithBoats);
   } catch (err) {
     next(err);
   }
 });
 
 // Update cart to have boat
-// router.put('/add', async (req, res, next) => {
-//   try {
-//     // req.params.id
-//     // let's send back all info for now
-//     res.json(order);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+// TODO: secure this route
+router.put('/:id/add', async (req, res, next) => {
+  try {
+    await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id/subtract', async (req, res, next) => {
+  try {
+    await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});

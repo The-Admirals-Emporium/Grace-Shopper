@@ -10,6 +10,9 @@ import * as serviceWorker from '../stripe/src/serviceWorker';
 // establishes socket connection
 import './socket';
 
+// Where is the right place to do this?
+//window.localStorage.clear()
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
