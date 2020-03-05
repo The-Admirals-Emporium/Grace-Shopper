@@ -25,6 +25,24 @@ router.get('/:id', isUser, async (req, res, next) => {
   }
 });
 
+router.put('/:id/add', isUser, async (req, res, next) => {
+  try {
+    const order = await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id/subtract', isUser, async (req, res, next) => {
+  try {
+    const order = await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // To do: secure this route
 // guests are getting an order without a user id
 // persist order somehow on session object
@@ -43,26 +61,6 @@ router.post('/', async (req, res, next) => {
     });
 
     res.json(orderWithBoats);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// Update cart to have boat
-// TODO: secure this route
-router.put('/:id/add', async (req, res, next) => {
-  try {
-    await Order.create();
-    res.json(order);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.put('/:id/subtract', async (req, res, next) => {
-  try {
-    await Order.create();
-    res.json(order);
   } catch (err) {
     next(err);
   }
