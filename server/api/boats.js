@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const { Boat } = require('../db/models');
-const { isUser } = require('./gateway.js');
+const { Boat, Order } = require('../db/models');
+const { isUser, isAdmin } = require('./gateway.js');
 
 module.exports = router;
 
@@ -59,5 +59,27 @@ router.put('/:id/decrease', isUser, async (req, res, next) => {
     res.json(decreaseBoat);
   } catch (error) {
     next(error);
+  }
+});
+
+// To do ... fix this route to use req.params.body
+// when we create the Boat
+router.post('/', isAdmin, async (req, res, next) => {
+  try {
+    // let's send back all info for now
+
+    const boat = await Boat.create();
+
+    const boatWithOrders = await Boat.findByPk(boat.id, {
+      include: [
+        {
+          model: Order,
+        },
+      ],
+    });
+
+    res.json(boatWithOrders);
+  } catch (err) {
+    next(err);
   }
 });
