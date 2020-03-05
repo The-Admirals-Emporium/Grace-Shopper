@@ -30,6 +30,15 @@ function isCorrectUser(req, res, next) {
   }
 }
 
-function isUser(req, res, next) {}
+function isUser(req, res, next) {
+  if (req.user) {
+    // more likely to have come from browser
+    next();
+  } else {
+    res
+      .status('403')
+      .send(`user is not allowed to access route ${getRoute(req)}`);
+  }
+}
 
 module.exports = { isAdmin, isCorrectUser, isUser };

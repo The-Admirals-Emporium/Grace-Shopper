@@ -1,13 +1,11 @@
 const router = require('express').Router();
 const { Boat } = require('../db/models');
+const { isUser } = require('./gateway.js');
+
 module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get('/', isUser, async (req, res, next) => {
   try {
-    //if not logged in or not admin cannot see boats
-    // if (!req.users || !req.isAdmin) {
-    //   return res.send(403);
-    // }
     const boats = await Boat.findAll({
       // explicitly select only fields we intend to display to all users
       // name, imageUrl, description, cost
@@ -27,7 +25,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isUser, async (req, res, next) => {
   try {
     const singleBoat = await Boat.findByPk(req.params.id);
     if (!singleBoat) {
@@ -42,7 +40,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.put('/:id/increase', async (req, res, next) => {
+router.put('/:id/increase', isUser, async (req, res, next) => {
   try {
     let increaseBoat = await Boat.findByPk(req.params.id);
     increaseBoat.inventory++;
@@ -53,7 +51,7 @@ router.put('/:id/increase', async (req, res, next) => {
   }
 });
 
-router.put('/:id/decrease', async (req, res, next) => {
+router.put('/:id/decrease', isUser, async (req, res, next) => {
   try {
     let decreaseBoat = await Boat.findByPk(req.params.id);
     decreaseBoat.inventory--;
