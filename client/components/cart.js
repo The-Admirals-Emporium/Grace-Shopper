@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCartFIXME } from '../store';
 import { Link } from 'react-router-dom';
+import Payment from './payment';
 
 class Cart extends Component {
   componentDidMount() {
@@ -102,6 +103,10 @@ class Cart extends Component {
               </li>
             );
           })}
+          {/* <button type="button" size="small" color="primary">
+            Checkout
+          </button> */}
+          <Payment />
         </ul>
       </div>
     );
