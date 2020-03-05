@@ -22,7 +22,14 @@ const Boat = db.define('boat', {
       min: 0.0,
     },
   },
-  // inventory
+  inventory: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+    validate: {
+      min: 0,
+    },
+  },
 });
 
 module.exports = Boat;
