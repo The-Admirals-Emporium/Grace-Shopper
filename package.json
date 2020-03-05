@@ -46,6 +46,8 @@
   "author": "Admiral's Emporium",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.0",
     "bluebird": "^3.7.2",
     "compression": "^1.7.3",
