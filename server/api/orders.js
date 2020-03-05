@@ -21,6 +21,8 @@ router.get('/:id', async (req, res, next) => {
       include: { model: Boat },
     });
 
+    order.cost = '$ USD ' + (order.total / 100).toFixed(2);
+
     res.json(order);
   } catch (err) {
     next(err);
@@ -34,10 +36,10 @@ router.post('/', async (req, res, next) => {
   try {
     // let's send back all info for now
     const order = await Order.create({ include: { model: Boat } });
-    const orderWithFields = await Order.findByPk(order.id, {
-      include: { model: Boat },
-    });
-    res.json(orderWithFields);
+
+    order.cost = '$ USD ' + (order.total / 100).toFixed(2);
+
+    res.json(order);
   } catch (err) {
     next(err);
   }
