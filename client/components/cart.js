@@ -4,8 +4,6 @@ import React from 'react';
 const Cart = props => {
   const cart = props.cart || JSON.parse(window.localStorage.getItem('cart'));
 
-  console.log('Cart component received cart', cart);
-
   if (cart) {
     return (
       <div>
