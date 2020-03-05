@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 export default class GuestHome extends Component {
   render() {
-    console.log('in guesthome');
     return (
       <div>
         <center>
