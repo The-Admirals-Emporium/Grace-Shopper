@@ -43,6 +43,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Button color="inherit">
                 <Link to="/signup">Sign Up</Link>
               </Button>
+              <Button color="inherit">
+                <Link to="/allUsersAdminView">Admin Panel</Link>
+              </Button>
             </Toolbar>
           </AppBar>
         </div>
