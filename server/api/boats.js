@@ -37,3 +37,25 @@ router.get('/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+router.put('/:id/increase', async (req, res, next) => {
+  try {
+    let increaseBoat = await Boat.findByPk(req.params.id);
+    increaseBoat.quantity++;
+    await Boat.save();
+    res.json(increaseBoat);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put('/:id/decrease', async (req, res, next) => {
+  try {
+    let decreaseBoat = await Boat.findByPk(req.params.id);
+    decreaseBoat.quantity--;
+    await Boat.save();
+    res.json(decreaseBoat);
+  } catch (error) {
+    next(error);
+  }
+});
