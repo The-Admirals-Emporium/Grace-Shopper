@@ -6,7 +6,7 @@ router.get('/', async (req, res, next) => {
   try {
     //if not logged in or not admin cannot see users
     if (!req.users || !req.isAdmin) {
-      return res.send('[]').status(403);
+      return res.status(403).send('[]');
     }
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
