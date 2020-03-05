@@ -11,7 +11,14 @@ router.get('/', async (req, res, next) => {
     const boats = await Boat.findAll({
       // explicitly select only fields we intend to display to all users
       // name, imageUrl, description, cost
-      attributes: ['id', 'name', 'imageUrl', 'description', 'cost'],
+      attributes: [
+        'id',
+        'name',
+        'imageUrl',
+        'description',
+        'cost',
+        'inventory',
+      ],
     });
 
     res.json(boats);
@@ -22,10 +29,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    // if not logged in or not admin cannot see boats
-    // if (!req.users || !req.isAdmin) {
-    //   return res.send(403);
-    // }
     const singleBoat = await Boat.findByPk(req.params.id);
     if (!singleBoat) {
       const error = Error('Sorry we currently do not have that boat listed');
@@ -42,8 +45,8 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id/increase', async (req, res, next) => {
   try {
     let increaseBoat = await Boat.findByPk(req.params.id);
-    increaseBoat.quantity++;
-    await Boat.save();
+    increaseBoat.inventory++;
+    await increaseBoat.save();
     res.json(increaseBoat);
   } catch (error) {
     next(error);
@@ -53,8 +56,8 @@ router.put('/:id/increase', async (req, res, next) => {
 router.put('/:id/decrease', async (req, res, next) => {
   try {
     let decreaseBoat = await Boat.findByPk(req.params.id);
-    decreaseBoat.quantity--;
-    await Boat.save();
+    decreaseBoat.inventory--;
+    await decreaseBoat.save();
     res.json(decreaseBoat);
   } catch (error) {
     next(error);

@@ -5,7 +5,7 @@ import history from '../history';
  * ACTION TYPES
  */
 const GET_CART = 'GET_CART';
-
+const UPDATE_CART = 'UPDATE_CART';
 /**
  * INITIAL STATE
  */
@@ -15,6 +15,7 @@ const defaultCart = { status: 'PENDING', boats: [] };
  * ACTION CREATORS
  */
 const getCart = cart => ({ type: GET_CART, cart });
+export const updateCart = boat => ({ type: UPDATE_CART, boat });
 
 /**
  * THUNK CREATORS
@@ -61,6 +62,8 @@ export default function(state = defaultCart, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart;
+    case UPDATE_CART:
+      return { ...state, boats: [...state.boats, action.boat] };
     default:
       return state;
   }
