@@ -83,3 +83,15 @@ router.post('/', isAdmin, async (req, res, next) => {
     next(err);
   }
 });
+
+router.delete('/:id', isAdmin, async (req, res, next) => {
+  try {
+    const pk = req.params.id;
+    const deleteMe = await Robot.findByPk(pk);
+
+    await deleteMe.destroy();
+    res.status(200).send(`boat id ${pk} successfully deleted`);
+  } catch (err) {
+    next(err);
+  }
+});
