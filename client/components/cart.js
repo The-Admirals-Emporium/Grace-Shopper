@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getCartFIXME } from '../store';
 import { Link } from 'react-router-dom';
 import Payment from './payment';
+import React from 'react';
 
 class Cart extends Component {
   componentDidMount() {
