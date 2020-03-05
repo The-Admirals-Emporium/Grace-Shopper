@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Login, Signup, UserHome, BoatList, SingleBoat } from './components';
-import { me } from './store';
+import { me, cart } from './store';
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData();
+    this.props.loadInitialData(this.props.user);
   }
 
   render() {
@@ -54,13 +54,17 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    user: state.user,
+    cart: state.order,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
-    loadInitialData() {
+    loadInitialData(user) {
+      console.log('load initial data got user', user);
       dispatch(me());
+      dispatch(cart(user));
     },
   };
 };
