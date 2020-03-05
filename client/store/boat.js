@@ -7,6 +7,7 @@ import { combineReducers } from 'redux';
  */
 const GET_BOATS = 'GET_BOATS';
 const GET_SINGLE_BOAT = 'GET_SINGLE_BOAT';
+const GET_UPDATE_QUANTITY = 'GET_UPDATE_QUANTITY';
 
 const initialState = {};
 
@@ -17,6 +18,11 @@ const getBoats = boats => ({ type: GET_BOATS, boats });
 
 const gotSingleBoat = boat => ({
   type: GET_SINGLE_BOAT,
+  boat,
+});
+
+const gotUpdateQuantity = boat => ({
+  type: GET_UPDATE_QUANTITY,
   boat,
 });
 
@@ -39,6 +45,28 @@ export const getSingleBoat = id => {
       dispatch(gotSingleBoat(data));
     } catch (err) {
       console.error(err);
+    }
+  };
+};
+
+export const increaseQuantity = id => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.put(`/api/boats/${id}/increase`);
+      dispatch(gotUpdateQuantity(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const decreaseQuantity = id => {
+  return async dispatch => {
+    try {
+      const { data } = await axios.put(`/api/boats/${id}/decrease`);
+      dispatch(gotUpdateQuantity(data));
+    } catch (error) {
+      console.error(error);
     }
   };
 };

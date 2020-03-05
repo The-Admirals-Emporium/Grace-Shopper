@@ -21,6 +21,10 @@ class BoatList extends Component {
                 </Link>
                 <img src={boat.imageUrl} width="190" height="190" />
                 <p>Cost: {boat.cost}</p>
+                <button type="button" size="small" color="primary">
+                  Purchase
+                </button>
+                {/* add onclick func */}
               </li>
             );
           })}

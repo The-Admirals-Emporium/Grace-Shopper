@@ -8,6 +8,7 @@ import {
   UserHome,
   BoatList,
   SingleBoat,
+  GuestHome,
   Cart,
 } from './components';
 import { me, cart } from './store';
@@ -27,6 +28,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route path="/ghome" component={GuestHome} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/boats" component={BoatList} />
