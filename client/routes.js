@@ -15,6 +15,7 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
+    const { cart } = this.props;
 
     return (
       <Switch>
@@ -37,6 +38,7 @@ class Routes extends Component {
           render={props => (
             <Fragment>
               <Login {...props} />
+              {cart ? `we have a cart! ${cart.status}` : "we don't have a cart"}
               <BoatList />
             </Fragment>
           )}
