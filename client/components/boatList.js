@@ -43,7 +43,9 @@ class BoatList extends Component {
                   size="small"
                   color="primary"
                   onClick={() => this.purchase(boat)}
-                ></button>
+                >
+                  Add
+                </button>
                 {/* add onclick func */}
               </li>
             );
