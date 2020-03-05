@@ -8,6 +8,8 @@ import {
 } from '../store';
 import { Link } from 'react-router-dom';
 
+import { costDisplay } from './utils';
+
 class BoatList extends Component {
   componentDidMount() {
     this.props.getAllBoats();
@@ -32,7 +34,8 @@ class BoatList extends Component {
                   <p>{boat.name}</p>
                 </Link>
                 <img src={boat.imageUrl} width="190" height="190" />
-                <p>Cost: {boat.cost}</p>
+
+                <p>Cost: {costDisplay(boat.cost)}</p>
                 <p>Inventory: {boat.inventory}</p>
                 <button
                   type="button"
@@ -40,9 +43,7 @@ class BoatList extends Component {
                   size="small"
                   color="primary"
                   onClick={() => this.purchase(boat)}
-                >
-                  Add
-                </button>
+                ></button>
                 {/* add onclick func */}
               </li>
             );

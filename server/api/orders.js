@@ -20,8 +20,6 @@ router.get('/:id', async (req, res, next) => {
       include: { model: Boat },
     });
 
-    order.total = (order.total / 100).toFixed(2);
-
     res.json(order);
   } catch (err) {
     next(err);
@@ -45,9 +43,27 @@ router.post('/', async (req, res, next) => {
       ],
     });
 
-    orderWithBoats.total = (orderWithBoats.total / 100).toFixed(2);
-
     res.json(orderWithBoats);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Update cart to have boat
+// TODO: secure this route
+router.put('/:id/add', async (req, res, next) => {
+  try {
+    await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id/subtract', async (req, res, next) => {
+  try {
+    await Order.create();
+    res.json(order);
   } catch (err) {
     next(err);
   }

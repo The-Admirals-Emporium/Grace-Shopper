@@ -19,7 +19,7 @@ const Boat = db.define('boat', {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      min: 0.0,
+      min: 0,
     },
   },
   inventory: {

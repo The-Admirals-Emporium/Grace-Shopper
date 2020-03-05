@@ -17,7 +17,7 @@ describe('Boat model', () => {
         titanic = await Boat.create({
           name: 'RMS Titanic',
           description: 'A ship that cannot be sunk',
-          cost: 1001,
+          cost: 1001001001,
         });
       });
 
@@ -26,7 +26,7 @@ describe('Boat model', () => {
       });
 
       it('returns false if the cost is incorrect', () => {
-        expect(titanic.cost).to.be.equal(1001);
+        expect(titanic.cost).to.be.equal(1001001001);
       });
     }); // end describe basic fields
   }); // end describe initializations

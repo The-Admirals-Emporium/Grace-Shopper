@@ -20,9 +20,7 @@ router.get('/', async (req, res, next) => {
         'inventory',
       ],
     });
-    boats.forEach(boat => {
-      boat.cost = '$ USD ' + (boat.cost / 100).toFixed(2);
-    });
+
     res.json(boats);
   } catch (err) {
     next(err);
