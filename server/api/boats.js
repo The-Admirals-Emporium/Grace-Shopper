@@ -11,7 +11,14 @@ router.get('/', async (req, res, next) => {
     const boats = await Boat.findAll({
       // explicitly select only fields we intend to display to all users
       // name, imageUrl, description, cost
-      attributes: ['id', 'name', 'imageUrl', 'description', 'cost'],
+      attributes: [
+        'id',
+        'name',
+        'imageUrl',
+        'description',
+        'cost',
+        'inventory',
+      ],
     });
     boats.forEach(boat => {
       boat.cost = '$ USD ' + (boat.cost / 100).toFixed(2);
@@ -44,7 +51,7 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id/increase', async (req, res, next) => {
   try {
     let increaseBoat = await Boat.findByPk(req.params.id);
-    increaseBoat.quantity++;
+    increaseBoat.inventory++;
     await Boat.save();
     res.json(increaseBoat);
   } catch (error) {
@@ -55,7 +62,7 @@ router.put('/:id/increase', async (req, res, next) => {
 router.put('/:id/decrease', async (req, res, next) => {
   try {
     let decreaseBoat = await Boat.findByPk(req.params.id);
-    decreaseBoat.quantity--;
+    decreaseBoat.inventory--;
     await Boat.save();
     res.json(decreaseBoat);
   } catch (error) {
