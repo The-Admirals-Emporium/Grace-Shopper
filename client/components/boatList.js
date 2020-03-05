@@ -19,10 +19,10 @@ class BoatList extends Component {
             return (
               <li key={boat.id}>
                 <Link to={`/boats/${boat.id}`}>
-                  <p>{costDisplay(boat.name)}</p>
+                  <p>{boat.name}</p>
                 </Link>
                 <img src={boat.imageUrl} width="190" height="190" />
-                <p>Cost: {boat.cost}</p>
+                <p>Cost: {costDisplay(boat.cost)}</p>
                 <button type="button" size="small" color="primary">
                   Purchase
                 </button>
