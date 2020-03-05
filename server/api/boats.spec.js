@@ -31,7 +31,7 @@ describe('Boat routes', () => {
     it('GET /api/boats', async () => {
       const res = await request(app)
         .get('/api/boats')
-        .expect(200);
+        .expect(403);
 
       expect(res.body).to.be.an('array');
       expect(res.body[0].name).to.be.equal(name);
