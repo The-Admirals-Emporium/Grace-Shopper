@@ -13,7 +13,7 @@ async function isAdmin(req, res, next) {
   }
 }
 
-function isUser(req, res, next) {
+function isCorrectUser(req, res, next) {
   const requesterId = req.user ? req.user.id : null;
   const requestedId = req.params.id;
   if (requesterId === requestedId) {
@@ -25,4 +25,6 @@ function isUser(req, res, next) {
   }
 }
 
-module.exports = { isAdmin, isUser };
+function isUser(req, res, next) {}
+
+module.exports = { isAdmin, isCorrectUser, isUser };

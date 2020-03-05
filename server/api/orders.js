@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Order, Boat, OrderBoats } = require('../db/models');
-const { isAdmin, isUser } = require('./gateway.js');
+const { isAdmin, isCorrectUser } = require('./gateway.js');
 
 module.exports = router;
 
@@ -13,7 +13,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 });
 
-router.get('/:id', isUser, async (req, res, next) => {
+router.get('/:id', isCorrectUser, async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id, {
       include: { model: Boat },
@@ -25,7 +25,7 @@ router.get('/:id', isUser, async (req, res, next) => {
   }
 });
 
-router.put('/:id/add', isUser, async (req, res, next) => {
+router.put('/:id/add', isCorrectUser, async (req, res, next) => {
   try {
     const order = await Order.create();
     res.json(order);
@@ -34,7 +34,7 @@ router.put('/:id/add', isUser, async (req, res, next) => {
   }
 });
 
-router.put('/:id/subtract', isUser, async (req, res, next) => {
+router.put('/:id/subtract', isCorrectUser, async (req, res, next) => {
   try {
     const order = await Order.create();
     res.json(order);
