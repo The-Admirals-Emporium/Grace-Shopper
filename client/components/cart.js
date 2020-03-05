@@ -1,9 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getCartFIXME } from '../store';
-import { Link } from 'react-router-dom';
-import Payment from './payment';
 import React from 'react';
+import Payment from './payment';
 
 class Cart extends Component {
   componentDidMount() {
