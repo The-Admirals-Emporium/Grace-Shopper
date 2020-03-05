@@ -1,6 +1,18 @@
 # Boilermaker - Joshua Skootsky, Tina Sosa, and Natasha Whitney.
 
-# BOATS ARE STRICTLY AWESOME!
+## Scripts
+
+To run tests while watching the code:
+
+```
+npm run test-watch
+```
+
+to start dev:
+
+```
+npm run start-dev
+```
 
 # BOATS ARE THE BEST
 

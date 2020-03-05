@@ -1,7 +1,7 @@
 const User = require('./user');
 const Order = require('./order');
 const Boat = require('./boat');
-const OrderItems = require('./orderitems');
+const OrderBoats = require('./orderboats');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -24,10 +24,11 @@ Order.prototype.calculateTotal = async function() {
  * instead of: const User = require('../db/models/user')
  */
 
-Boat.belongsToMany(Order, { through: OrderItems });
-Order.belongsToMany(Boat, { through: OrderItems });
+Boat.belongsToMany(Order, { through: OrderBoats });
+Order.belongsToMany(Boat, { through: OrderBoats });
 
 User.hasMany(Order);
+Order.belongsTo(User);
 
 module.exports = {
   User,

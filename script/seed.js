@@ -2,7 +2,7 @@
 var Promise = require('bluebird');
 
 const db = require('../server/db');
-const { User, Order } = require('../server/db/models');
+const { User, Order, Boat } = require('../server/db/models');
 
 var ordersData = [
   { status: 'COMPLETED' },
@@ -38,13 +38,13 @@ var boatNames = [
 var boatsData = boatNames.slice(0, 5).map(name => ({
   name: name,
   description: '',
-  cost: Math.random() * 1000000,
+  cost: Math.floor(Math.random() * 1000000),
 }));
 
 var boatsWithOrdersData = boatNames.slice(5).map(name => ({
   name: name,
   description: '',
-  cost: Math.random() * 1000000,
+  cost: Math.floor(Math.random() * 1000000),
 }));
 
 async function seed() {
@@ -95,6 +95,21 @@ async function seed() {
   });
 
   console.log(`seeded ${boatsWithOrders.length} boats with orders`);
+
+  const ordersWithBoats = await Promise.map(ordersData, function(order, ind) {
+    return db.model('order').create(
+      Object.assign(order, {
+        boats: boatsData.slice(ind),
+      }),
+      {
+        include: [Boat],
+      }
+    );
+  });
+
+  console.log(ordersWithBoats[0].dataValues);
+
+  console.log(`seeded ${ordersWithBoats.length} orders with multiple boats`);
 
   console.log(`seeded successfully`);
 }
