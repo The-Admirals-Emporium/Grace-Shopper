@@ -39,12 +39,14 @@ var boatsData = boatNames.slice(0, 5).map(name => ({
   name: name,
   description: '',
   cost: Math.floor(Math.random() * 1000000),
+  inventory: Math.floor(Math.random() * 100),
 }));
 
 var boatsWithOrdersData = boatNames.slice(5).map(name => ({
   name: name,
   description: '',
   cost: Math.floor(Math.random() * 1000000),
+  inventory: Math.floor(Math.random() * 100),
 }));
 
 async function seed() {
@@ -106,8 +108,6 @@ async function seed() {
       }
     );
   });
-
-  console.log(ordersWithBoats[0].dataValues);
 
   console.log(`seeded ${ordersWithBoats.length} orders with multiple boats`);
 
