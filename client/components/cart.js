@@ -1,5 +1,6 @@
 import Payment from './payment';
 import React from 'react';
+import { costDisplay } from './utils';
 
 // cart should be a stateless, functional component like grocery item in add groceries
 const Cart = props => {
@@ -15,29 +16,28 @@ const Cart = props => {
       <div>
         <h3>Status: {cart.status}</h3>
         <h3>Total: $ USD {cart.total}</h3>
-        <ul>
-          {cart.boats.map(boat => {
-            return (
-              <li key={boat.id}>
-                <p>Name: {boat.name}</p>
-                <p>Cost: {boat.cost}</p>
-                <p>Quantity: to-do</p>
-                <button
-                  type="button"
-                  disabled={!boat.inventory}
-                  size="small"
-                  color="primary"
-                >
-                  Remove
-                </button>
-              </li>
-            );
-          })}
-          {/* <button type="button" size="small" color="primary">
-            Checkout
-          </button> */}
-          <Payment />
-        </ul>
+        {cart.boats && (
+          <ul>
+            {cart.boats.map(boat => {
+              return (
+                <li key={boat.id}>
+                  <p>Name: {boat.name}</p>
+                  <p>Cost: {costDisplay(boat.cost)}</p>
+                  <p>Quantity: to-do</p>
+                  <button
+                    type="button"
+                    disabled={!boat.inventory}
+                    size="small"
+                    color="primary"
+                  >
+                    Remove
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        <Payment />
       </div>
     );
   } else {
