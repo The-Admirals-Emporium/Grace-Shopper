@@ -31,10 +31,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    // if not logged in or not admin cannot see boats
-    // if (!req.users || !req.isAdmin) {
-    //   return res.send(403);
-    // }
     const singleBoat = await Boat.findByPk(req.params.id);
     if (!singleBoat) {
       const error = Error('Sorry we currently do not have that boat listed');

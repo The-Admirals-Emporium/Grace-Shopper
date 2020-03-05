@@ -12,8 +12,7 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// Get a particular order with boats
-// We don't need ALL
+// To do: secure this route
 router.get('/:id', async (req, res, next) => {
   try {
     console.log(req.params.id);
@@ -53,14 +52,3 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
-
-// Update cart to have boat
-// router.put('/add', async (req, res, next) => {
-//   try {
-//     // req.params.id
-//     // let's send back all info for now
-//     res.json(order);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
