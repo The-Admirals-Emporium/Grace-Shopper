@@ -78,6 +78,10 @@ function allBoatsReducer(boats = [], action) {
   switch (action.type) {
     case GET_BOATS:
       return action.boats;
+    case GET_UPDATE_QUANTITY:
+      return boats.map(boat =>
+        boat.id === action.boat.id ? action.boat : boat
+      );
     default:
       return boats;
   }
@@ -86,6 +90,8 @@ function allBoatsReducer(boats = [], action) {
 function singleBoatReducer(boat = {}, action) {
   switch (action.type) {
     case GET_SINGLE_BOAT:
+      return action.boat;
+    case GET_UPDATE_QUANTITY:
       return action.boat;
     default:
       return boat;
