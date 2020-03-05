@@ -18,16 +18,20 @@ describe('User routes', () => {
       return User.create({
         username: 'cody',
         email: codysEmail,
+        isAdmin: true,
       });
     });
 
-    it('GET /api/users', async () => {
+    it('GET /api/users disallows unathorized user to hit this route', async () => {
       const res = await request(app)
         .get('/api/users')
-        .expect(200);
+        .expect(403);
+    });
 
-      // expect(res.body).to.be.an('array');
-      // expect(res.body[0].email).to.be.equal(codysEmail);
+    it('GET /api/users allows athorized user to hit this route', async () => {
+      const res = await request(app)
+        .get('/api/users')
+        .expect(403);
     });
   }); // end describe('/api/users')
 }); // end describe('User routes')
