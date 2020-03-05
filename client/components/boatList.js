@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllBoats } from '../store';
+import { getAllBoats, increaseQuantity, decreaseQuantity } from '../store';
 import { Link } from 'react-router-dom';
 
 class BoatList extends Component {
   componentDidMount() {
     this.props.getAllBoats();
+    this.purchase = this.purchase.bind(this);
+  }
+  purchase(id) {
+    this.props.decreaseQuantity(id);
   }
   render() {
     console.log('in all boats', this.props.boats);
@@ -21,13 +25,15 @@ class BoatList extends Component {
                 </Link>
                 <img src={boat.imageUrl} width="190" height="190" />
                 <p>Cost: {boat.cost}</p>
+                <p>Inventory: {boat.inventory}</p>
                 <button
                   type="button"
                   disabled={!boat.inventory}
                   size="small"
                   color="primary"
+                  onClick={() => this.purchase(boat.id)}
                 >
-                  Purchase
+                  Add
                 </button>
                 {/* add onclick func */}
               </li>
@@ -48,6 +54,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     getAllBoats: () => dispatch(getAllBoats()),
+    increaseQuantity: id => dispatch(increaseQuantity(id)),
+    decreaseQuantity: id => dispatch(decreaseQuantity(id)),
   };
 };
 
