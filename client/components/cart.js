@@ -1,4 +1,5 @@
 import React from 'react';
+import { costDisplay } from './utils';
 
 // cart should be a stateless, functional component like grocery item in add groceries
 const Cart = props => {
