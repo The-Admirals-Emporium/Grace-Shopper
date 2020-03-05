@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const { Order, Boat, OrderBoats } = require('../db/models');
+const { isAdmin, isUser } = require('./gateway.js');
+
 module.exports = router;
 
-// To do: secure this route
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const orders = await Order.findAll();
     res.json(orders);
@@ -12,10 +13,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// To do: secure this route
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isUser, async (req, res, next) => {
   try {
-    console.log(req.params.id);
     const order = await Order.findByPk(req.params.id, {
       include: { model: Boat },
     });
