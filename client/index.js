@@ -5,6 +5,7 @@ import { Router } from 'react-router-dom';
 import history from './history';
 import store from './store';
 import App from './app';
+import * as serviceWorker from '../stripe/src/serviceWorker';
 
 // establishes socket connection
 import './socket';
@@ -20,3 +21,8 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

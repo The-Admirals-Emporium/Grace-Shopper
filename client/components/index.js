@@ -10,4 +10,6 @@ export { default as SingleBoat } from './singleBoat';
 export { default as GuestHome } from './guest-home';
 export { default as Cart } from './cart';
 export { default as allUsersAdminView } from './allUsersAdminView';
+export { default as Payment } from './payment';
+
 export { Login, Signup } from './auth-form';

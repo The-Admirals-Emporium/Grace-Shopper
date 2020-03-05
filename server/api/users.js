@@ -1,19 +1,8 @@
 const router = require('express').Router();
 const { User } = require('../db/models');
-module.exports = router;
+const { isAdmin } = require('./gateway.js');
 
-async function isAdmin(req, res, next) {
-  if (req.user && req.user.isAdmin) {
-    const realUser = await User.findByPk(req.user.id);
-    if (realUser) {
-      next();
-    } else {
-      res.status('403').send('user is not an admin and is not in database');
-    }
-  } else {
-    res.status('403').send('user is not an admin');
-  }
-}
+module.exports = router;
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
