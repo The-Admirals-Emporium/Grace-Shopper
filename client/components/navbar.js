@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <h1>Have Yachts</h1>
@@ -22,11 +26,25 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/ghome">Home</Link>
-          <Link to="/boats">Boats</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <AppBar position="static">
+            <Toolbar>
+              <Button color="inherit">
+                <Link to="/ghome">Home</Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/boats">Boats</Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/cart">Cart</Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/signup">Sign Up</Link>
+              </Button>
+            </Toolbar>
+          </AppBar>
         </div>
       )}
     </nav>
