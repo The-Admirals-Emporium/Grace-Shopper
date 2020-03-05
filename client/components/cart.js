@@ -1,3 +1,4 @@
+import Payment from './payment';
 import React from 'react';
 
 // cart should be a stateless, functional component like grocery item in add groceries
@@ -32,6 +33,10 @@ const Cart = props => {
               </li>
             );
           })}
+          {/* <button type="button" size="small" color="primary">
+            Checkout
+          </button> */}
+          <Payment />
         </ul>
       </div>
     );
