@@ -21,7 +21,7 @@ router.get('/:id', async (req, res, next) => {
       include: { model: Boat },
     });
 
-    order.cost = '$ USD ' + (order.total / 100).toFixed(2);
+    order.total = (order.total / 100).toFixed(2);
 
     res.json(order);
   } catch (err) {
@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
     // let's send back all info for now
     const order = await Order.create({ include: { model: Boat } });
 
-    order.cost = '$ USD ' + (order.total / 100).toFixed(2);
+    order.total = (order.total / 100).toFixed(2);
 
     res.json(order);
   } catch (err) {
