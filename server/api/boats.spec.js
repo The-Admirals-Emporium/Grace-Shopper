@@ -27,6 +27,8 @@ describe('Boat routes', () => {
       });
     });
 
+    const costInDollars = '$ USD 999999.99';
+
     it('GET /api/boats', async () => {
       const res = await request(app)
         .get('/api/boats')
@@ -34,7 +36,7 @@ describe('Boat routes', () => {
 
       expect(res.body).to.be.an('array');
       expect(res.body[0].name).to.be.equal(name);
-      expect(res.body[0].cost).to.be.equal(cost);
+      expect(res.body[0].cost).to.be.equal(costInDollars);
       expect(res.body[0].description).to.be.equal(description);
       expect(res.body[0].imageUrl).to.be.equal(imageUrl);
     });
