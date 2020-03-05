@@ -21,14 +21,23 @@ const getCart = cart => ({ type: GET_CART, cart });
  */
 export const cart = user => async dispatch => {
   let cart;
-  console.log('window local storage is', window.localStorage.getItem('cart'));
+
   try {
     // switch to session storage
     if (window.localStorage.getItem('cart')) {
+      console.log(
+        'grabbing cart from window local storage',
+        window.localStorage.getItem('cart')
+      );
       cart = JSON.parse(window.localStorage.getItem('cart'));
     } else if (!user.length) {
       // guest
-      cart = defaultCart; // object
+
+      let res = await axios.post('/api/orders'); // object
+
+      cart = res.data;
+
+      console.log('getting new cart template from database', cart);
       window.localStorage.setItem('cart', JSON.stringify(cart));
     } else {
       // user, load from database
