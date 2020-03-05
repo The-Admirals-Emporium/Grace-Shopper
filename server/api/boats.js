@@ -9,6 +9,9 @@ router.get('/', async (req, res, next) => {
       // name, imageUrl, description, cost
       attributes: ['id', 'name', 'imageUrl', 'description', 'cost'],
     });
+    boats.forEach(boat => {
+      boat.cost = '$ USD ' + (boat.cost / 100).toFixed(2);
+    });
     res.json(boats);
   } catch (err) {
     next(err);
