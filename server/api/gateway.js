@@ -13,6 +13,11 @@ async function isAdmin(req, res, next) {
   }
 }
 
+function getRoute(req) {
+  const routeParts = req.baseUrl.split('/');
+  return routeParts[routeParts.length - 1];
+}
+
 function isCorrectUser(req, res, next) {
   const requesterId = req.user ? req.user.id : null;
   const requestedId = req.params.id;
@@ -21,7 +26,7 @@ function isCorrectUser(req, res, next) {
   } else {
     res
       .status('403')
-      .send('user is not allowed to access another users orders');
+      .send(`user is not allowed to access another users ${getRoute(req)}`);
   }
 }
 
