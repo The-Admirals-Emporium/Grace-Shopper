@@ -35,7 +35,12 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     // let's send back all info for now
-    const order = await Order.create({ include: { model: Boat } });
+
+    const order = await Order.create({ include: [{ model: Boat }] });
+
+    // contain boat
+    // insert an entry into the order_boats table
+    console.log('hey i create a new cart for you', order);
 
     order.total = (order.total / 100).toFixed(2);
 
