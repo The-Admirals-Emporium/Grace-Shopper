@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Order, Boat, OrderBoats } = require('../db/models');
-const { isAdmin, isCorrectUser } = require('./gateway.js');
+const { isAdmin, isCorrectUser, isUser } = require('./gateway.js');
 
 module.exports = router;
 
@@ -46,7 +46,7 @@ router.put('/:id/subtract', isCorrectUser, async (req, res, next) => {
 // To do: secure this route
 // guests are getting an order without a user id
 // persist order somehow on session object
-router.post('/', async (req, res, next) => {
+router.post('/', isUser, async (req, res, next) => {
   try {
     // let's send back all info for now
 
