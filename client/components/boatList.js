@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllBoats, increaseQuantity, decreaseQuantity } from '../store';
+import {
+  getAllBoats,
+  increaseQuantity,
+  decreaseQuantity,
+  updateCart,
+} from '../store';
 import { Link } from 'react-router-dom';
 
 class BoatList extends Component {
@@ -8,8 +13,15 @@ class BoatList extends Component {
     this.props.getAllBoats();
     this.purchase = this.purchase.bind(this);
   }
-  purchase(id) {
-    this.props.decreaseQuantity(id);
+  purchase(boat) {
+    // fix this
+    this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component
+    const cart = JSON.parse(window.localStorage.cart); // TKTK make utility function
+    console.log('cart from local storage is cart', cart);
+
+    this.props.addBoatToCart(boat);
+    console.log('cart from redux storage is cart', cart);
+    // reassign to local storage, async
   }
   render() {
     console.log('in all boats', this.props.boats);
@@ -31,7 +43,7 @@ class BoatList extends Component {
                   disabled={!boat.inventory}
                   size="small"
                   color="primary"
-                  onClick={() => this.purchase(boat.id)}
+                  onClick={() => this.purchase(boat)}
                 >
                   Add
                 </button>
@@ -49,6 +61,7 @@ const mapState = state => {
   console.log(state);
   return {
     boats: state.boat.allBoats,
+    cart: state.cart,
   };
 };
 const mapDispatch = dispatch => {
@@ -56,6 +69,7 @@ const mapDispatch = dispatch => {
     getAllBoats: () => dispatch(getAllBoats()),
     increaseQuantity: id => dispatch(increaseQuantity(id)),
     decreaseQuantity: id => dispatch(decreaseQuantity(id)),
+    addBoatToCart: boat => dispatch(updateCart(boat)),
   };
 };
 
