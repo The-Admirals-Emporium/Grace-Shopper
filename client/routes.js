@@ -9,6 +9,7 @@ import {
   BoatList,
   SingleBoat,
   GuestHome,
+  Cart,
 } from './components';
 import { me } from './store';
 
@@ -31,6 +32,7 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/boats" component={BoatList} />
         <Route exact path="/boats/:id" component={SingleBoat} />
+        <Route exact path="/cart" component={Cart} />
 
         {isLoggedIn && (
           <Switch>

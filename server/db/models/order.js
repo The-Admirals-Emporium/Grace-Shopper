@@ -13,6 +13,7 @@ const Order = db.define('order', {
       'REFUNDED'
     ),
     allowNull: false,
+    defaultValue: 'PENDING',
   },
   shippingAddress: {
     type: Sequelize.STRING,
@@ -26,8 +27,8 @@ const Order = db.define('order', {
     },
   },
   total: {
-    type: Sequelize.FLOAT,
-    defaultValue: -1,
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
 });
 
