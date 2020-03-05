@@ -35,11 +35,20 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     // let's send back all info for now
-    const order = await Order.create({ include: { model: Boat } });
 
-    order.total = (order.total / 100).toFixed(2);
+    const order = await Order.create();
 
-    res.json(order);
+    const orderWithBoats = await Order.findByPk(order.id, {
+      include: [
+        {
+          model: Boat,
+        },
+      ],
+    });
+
+    orderWithBoats.total = (orderWithBoats.total / 100).toFixed(2);
+
+    res.json(orderWithBoats);
   } catch (err) {
     next(err);
   }
