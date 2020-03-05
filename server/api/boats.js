@@ -87,7 +87,7 @@ router.post('/', isAdmin, async (req, res, next) => {
 router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     const pk = req.params.id;
-    const deleteMe = await Robot.findByPk(pk);
+    const deleteMe = await Boat.findByPk(pk);
 
     await deleteMe.destroy();
     res.status(200).send(`boat id ${pk} successfully deleted`);
