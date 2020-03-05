@@ -2,7 +2,12 @@ import React from 'react';
 
 // cart should be a stateless, functional component like grocery item in add groceries
 const Cart = props => {
-  const cart = props.cart || JSON.parse(window.localStorage.getItem('cart'));
+  const cart = props.cart;
+  const localStorageCart = JSON.parse(window.localStorage.getItem('cart'));
+
+  if (cart !== localStorageCart) {
+    window.localStorage.setItem('cart', JSON.stringify(cart));
+  }
 
   if (cart) {
     return (

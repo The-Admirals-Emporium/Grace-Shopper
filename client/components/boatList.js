@@ -16,12 +16,8 @@ class BoatList extends Component {
   purchase(boat) {
     // fix this
     this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component
-    const cart = JSON.parse(window.localStorage.cart); // TKTK make utility function
-    console.log('cart from local storage is cart', cart);
-
     this.props.addBoatToCart(boat);
-    console.log('cart from redux storage is cart', cart);
-    // reassign to local storage, async
+    // TKTK reassign to local storage, async here?? here
   }
   render() {
     console.log('in all boats', this.props.boats);
