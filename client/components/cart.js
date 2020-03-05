@@ -33,6 +33,9 @@ const Cart = props => {
               </li>
             );
           })}
+          {/* <button type="button" size="small" color="primary">
+            Checkout
+          </button> */}
           <Payment />
         </ul>
       </div>
