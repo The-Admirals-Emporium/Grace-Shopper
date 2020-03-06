@@ -31,13 +31,13 @@ describe('Boat routes', () => {
     it('GET /api/boats', async () => {
       const res = await request(app)
         .get('/api/boats')
-        .expect(403);
+        .expect(200);
 
-      // expect(res.body).to.be.an('array');
-      // expect(res.body[0].name).to.be.equal(name);
-      // expect(res.body[0].cost).to.be.equal(cost);
-      // expect(res.body[0].description).to.be.equal(description);
-      // expect(res.body[0].imageUrl).to.be.equal(imageUrl);
+      expect(res.body).to.be.an('array');
+      expect(res.body[0].name).to.be.equal(name);
+      expect(res.body[0].cost).to.be.equal(cost);
+      expect(res.body[0].description).to.be.equal(description);
+      expect(res.body[0].imageUrl).to.be.equal(imageUrl);
     });
   }); // end describe('/api/users')
 }); // end describe('User routes')
