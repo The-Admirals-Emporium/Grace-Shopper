@@ -6,6 +6,7 @@ import history from './history';
 import store from './store';
 import App from './app';
 import * as serviceWorker from '../stripe/src/serviceWorker';
+// import 'bootstrap/dist/css/bootstrap.css';
 
 // establishes socket connection
 import './socket';
