@@ -30,15 +30,15 @@ function isCorrectUser(req, res, next) {
   }
 }
 
-function isUser(req, res, next) {
-  if (req.user) {
+function isSession(req, res, next) {
+  if (req.sessionID) {
     // more likely to have come from browser
     next();
   } else {
     res
       .status('403')
-      .send(`user is not allowed to access route ${getRoute(req)}`);
+      .send(`non-browser is not allowed to access route ${getRoute(req)}`);
   }
 }
 
-module.exports = { isAdmin, isCorrectUser, isUser };
+module.exports = { isAdmin, isCorrectUser, isSession };
