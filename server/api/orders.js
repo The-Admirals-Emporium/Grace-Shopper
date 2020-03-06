@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const { Order, Boat, OrderBoats } = require('../db/models');
+const { isAdmin, isCorrectUser, isSession } = require('./gateway.js');
+
 module.exports = router;
 
-// To do: secure this route
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const orders = await Order.findAll();
     res.json(orders);
@@ -12,10 +13,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// To do: secure this route
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isCorrectUser, async (req, res, next) => {
   try {
-    console.log(req.params.id);
     const order = await Order.findByPk(req.params.id, {
       include: { model: Boat },
     });
@@ -26,10 +25,28 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+router.put('/:id/add', isCorrectUser, async (req, res, next) => {
+  try {
+    const order = await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put('/:id/subtract', isCorrectUser, async (req, res, next) => {
+  try {
+    const order = await Order.create();
+    res.json(order);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // To do: secure this route
 // guests are getting an order without a user id
 // persist order somehow on session object
-router.post('/', async (req, res, next) => {
+router.post('/', isSession, async (req, res, next) => {
   try {
     // let's send back all info for now
 
@@ -44,26 +61,6 @@ router.post('/', async (req, res, next) => {
     });
 
     res.json(orderWithBoats);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// Update cart to have boat
-// TODO: secure this route
-router.put('/:id/add', async (req, res, next) => {
-  try {
-    await Order.create();
-    res.json(order);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.put('/:id/subtract', async (req, res, next) => {
-  try {
-    await Order.create();
-    res.json(order);
   } catch (err) {
     next(err);
   }

@@ -13,7 +13,7 @@ var ordersData = [
 ];
 
 var usersData = [
-  { email: 'cody@email.com', password: '123' },
+  { email: 'cody@email.com', password: '123', isAdmin: true },
   { email: 'murphy@email.com', password: '123' },
 ];
 
