@@ -8,7 +8,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
   <div>
     <h1>Have Yachts</h1>
     <nav>
@@ -22,6 +22,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             Logout
           </a>
           <Link to="/cart">Cart</Link>
+          <Button color="inherit">
+            <Link to="/allUsersAdminView">Admin Panel</Link>
+          </Button>
         </div>
       ) : (
         <div>
@@ -43,9 +46,6 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               <Button color="inherit">
                 <Link to="/signup">Sign Up</Link>
               </Button>
-              <Button color="inherit">
-                <Link to="/allUsersAdminView">Admin Panel</Link>
-              </Button>
             </Toolbar>
           </AppBar>
         </div>
@@ -61,6 +61,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin,
   };
 };
 

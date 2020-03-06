@@ -20,6 +20,8 @@ import { me, cart } from './store';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData(this.props.user);
+    console.log('This props user: ', this.props.user);
+    // this.props.user is empty
   }
 
   render() {
