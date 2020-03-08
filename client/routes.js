@@ -14,6 +14,8 @@ import {
   UserProfile,
   LoginAndSecurity,
   UserOrders,
+  Checkout,
+  CheckoutNavbar,
 } from './components';
 import { me, cart } from './store';
 
@@ -43,6 +45,7 @@ class Routes extends Component {
           path="/cart"
           render={props => <Cart {...props} {...this.props} />}
         />
+        <Route exact path="/checkout" component={CheckoutNavbar} />
 
         {isLoggedIn && (
           <Switch>

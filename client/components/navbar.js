@@ -22,6 +22,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             Logout
           </a>
           <Link to="/cart">Cart</Link>
+          <Link to="/checkout">Checkout</Link>
         </div>
       ) : (
         <div>
@@ -36,6 +37,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
               </Button>
               <Button color="inherit">
                 <Link to="/cart">Cart</Link>
+              </Button>
+              <Button color="inherit">
+                <Link to="/checkout">Checkout</Link>
               </Button>
               <Button color="inherit">
                 <Link to="/login">Login</Link>

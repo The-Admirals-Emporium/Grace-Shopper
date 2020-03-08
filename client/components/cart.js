@@ -1,6 +1,8 @@
 import Payment from './payment';
 import React from 'react';
 import { costDisplay } from './utils';
+import { Link } from 'react-router-dom';
+import Checkout from './checkout';
 
 // cart should be a stateless, functional component like grocery item in add groceries
 const Cart = props => {
@@ -37,7 +39,14 @@ const Cart = props => {
           {/* <button type="button" size="small" color="primary">
             Checkout
           </button> */}
-          <Payment />
+
+          <h3>
+            Buy now: <Payment />
+          </h3>
+
+          <Link to="/checkout">
+            <h3>Proceed to checkout</h3>
+          </Link>
         </ul>
       </div>
     );
