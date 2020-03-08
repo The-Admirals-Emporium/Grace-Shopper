@@ -69,23 +69,5 @@ describe('User model', () => {
         expect(err.message).to.not.have.string('Validation should have failed');
       }
     });
-
-    it('throws error if user with nonunique name is entered', async () => {
-      await User.create({ username: 'nati', email: 'nati@gmail.com' });
-
-      try {
-        const userNameNonUnique = await User.create({
-          username: 'nati',
-          email: 'nati@aol.com',
-        });
-
-        if (userNameNonUnique)
-          throw Error(
-            'Validation should have failed with validation unique key constraint'
-          );
-      } catch (err) {
-        expect(err.message).to.not.have.string('Validation should have failed');
-      }
-    });
   }); // end describe('unique key constraints')
 }); // end describe('User model')

@@ -11,6 +11,8 @@ const Boat = db.define('boat', {
   },
   imageUrl: {
     type: Sequelize.STRING,
+    defaultValue:
+      'https://images.unsplash.com/photo-1526761122248-c31c93f8b2b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
   },
   description: {
     type: Sequelize.TEXT,

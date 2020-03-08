@@ -11,6 +11,9 @@ import {
   GuestHome,
   Cart,
   allUsersAdminView,
+  UserProfile,
+  LoginAndSecurity,
+  UserOrders,
 } from './components';
 import { me, cart } from './store';
 
@@ -47,6 +50,15 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/profile" component={UserProfile} />
+            <Route path="/security" component={LoginAndSecurity} />
+            <Route path="/uorders" component={UserOrders} />
+          </Switch>
+        )}
+        {isLoggedIn && isAdmin && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/allUsersAdminView" component={allUsersAdminView} />
           </Switch>
         )}
         {isLoggedIn && isAdmin && (
