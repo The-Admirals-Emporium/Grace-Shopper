@@ -11,7 +11,6 @@ import {
   GuestHome,
   Cart,
   AllUsersAdminView,
-  Admin,
   UserProfile,
   LoginAndSecurity,
   UserOrders,
@@ -54,13 +53,16 @@ class Routes extends Component {
             <Route path="/profile" component={UserProfile} />
             <Route path="/security" component={LoginAndSecurity} />
             <Route path="/uorders" component={UserOrders} />
+            <Route exact path="/admin-panel" component={AllUsersAdminView} />
           </Switch>
         )}
 
         {isLoggedIn && isAdmin && (
           <Switch>
             {/* Routes placed here are only available to logged in admins */}
-            <Route path="/admin" component={Admin} />
+
+            {/* commented out for testing purposes */}
+            <Route exact path="/admin-panel" component={AllUsersAdminView} />
           </Switch>
         )}
 
