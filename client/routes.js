@@ -60,7 +60,7 @@ class Routes extends Component {
         {isLoggedIn && isAdmin && (
           <Switch>
             {/* Routes placed here are only available to logged in admins */}
-            <Route path="/allUsersAdminView" component={AllUsersAdminView} />
+            <Route path="/admin" component={Admin} />
           </Switch>
         )}
 
