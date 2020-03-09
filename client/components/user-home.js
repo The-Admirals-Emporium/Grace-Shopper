@@ -8,7 +8,7 @@ import { userCart } from '../store';
  */
 export class UserHome extends Component {
   componentDidMount() {
-    this.props.loadUserData(this.props.user);
+    if (this.props.user) this.props.loadUserData(this.props.user);
   }
 
   render() {
