@@ -30,8 +30,6 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
     const { isAdmin } = this.props;
     const { cart } = this.props;
-    console.log('This props user: ', this.props.user);
-    console.log('This props: ', this.props);
     console.log('isAdmin: ', isAdmin);
     return (
       <Switch>
@@ -56,9 +54,10 @@ class Routes extends Component {
             <Route path="/uorders" component={UserOrders} />
           </Switch>
         )}
-        {isLoggedIn && isAdmin && (
+        {isAdmin && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+            {console.log('rendering the admin route...')}
             <Route path="/admin" component={Admin} />
           </Switch>
         )}

@@ -47,7 +47,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
           </AppBar>
         </div>
       )}
-      {isLoggedIn && isAdmin && (
+      {isAdmin && (
         <Button color="inherit">
           <Link to="/admin">Admin Panel</Link>
         </Button>

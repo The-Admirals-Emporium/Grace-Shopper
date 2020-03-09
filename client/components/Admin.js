@@ -2,7 +2,12 @@ import React, { Fragment } from 'react';
 import AllUsersAdminView from './AllUsersAdminView';
 
 const Admin = props => {
-  return <p>Welcome, Admin</p>;
+  console.log('Admin rendering');
+  return (
+    <p>
+      Welcome, Admin <AllUsersAdminView />{' '}
+    </p>
+  );
 };
 
 export default Admin;

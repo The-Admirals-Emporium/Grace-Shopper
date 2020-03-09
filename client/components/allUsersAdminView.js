@@ -6,6 +6,7 @@ class AllUsersAdminView extends Component {
   }
 
   render() {
+    console.log('AllUsers rendering');
     const { users } = this.props;
     return (
       <ul>
