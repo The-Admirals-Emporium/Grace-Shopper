@@ -10,6 +10,8 @@ import {
 import { Link } from 'react-router-dom';
 
 import { costDisplay } from './utils';
+// import { GridList } from '@material-ui/core';
+// import { Button, TextField, GridList } from '@material-ui/core';
 
 class BoatList extends Component {
   componentDidMount() {
