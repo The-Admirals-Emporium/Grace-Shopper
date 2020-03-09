@@ -11,6 +11,7 @@ export { default as GuestHome } from './guest-home';
 export { default as Cart } from './cart';
 export { default as Payment } from './payment';
 export { default as UserProfile } from './userProfile';
+export { default as Admin } from './admin';
 export { default as AllUsersAdminView } from './allUsersAdminView';
 export { default as LoginAndSecurity } from './loginAndSecurity';
 export { default as UserOrders } from './userOrders';

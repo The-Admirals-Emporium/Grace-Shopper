@@ -10,7 +10,6 @@ import {
   SingleBoat,
   GuestHome,
   Cart,
-  AllUsersAdminView,
   Admin,
   UserProfile,
   LoginAndSecurity,
