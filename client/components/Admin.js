@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import AllUsersAdminView from './AllUsersAdminView';
+import AllUsersAdminView from './allUsersAdminView';
 
 const Admin = props => {
   console.log('Admin rendering');
