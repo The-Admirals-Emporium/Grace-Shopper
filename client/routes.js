@@ -10,6 +10,7 @@ import {
   SingleBoat,
   GuestHome,
   Cart,
+  AllUsersAdminView,
   Admin,
   UserProfile,
   LoginAndSecurity,
@@ -59,7 +60,7 @@ class Routes extends Component {
         {isLoggedIn && isAdmin && (
           <Switch>
             {/* Routes placed here are only available to logged in admins */}
-            <Route path="/allUsersAdminView" component={allUsersAdminView} />
+            <Route path="/allUsersAdminView" component={AllUsersAdminView} />
           </Switch>
         )}
 
