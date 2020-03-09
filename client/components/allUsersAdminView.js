@@ -1,6 +1,6 @@
 import React from 'react';
 
-const allUsersAdminView = props => {
+const AllUsersAdminView = props => {
   // only fire thunk to populate users into Redux store if user is an admin
   // map over users and display them to admin
 
@@ -12,4 +12,4 @@ const allUsersAdminView = props => {
   return <p>Welcome, Admin</p>;
 };
 
-export default allUsersAdminView;
+export default AllUsersAdminView;

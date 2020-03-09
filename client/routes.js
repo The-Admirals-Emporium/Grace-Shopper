@@ -58,13 +58,7 @@ class Routes extends Component {
         {isLoggedIn && isAdmin && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/allUsersAdminView" component={allUsersAdminView} />
-          </Switch>
-        )}
-        {isLoggedIn && isAdmin && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/allUsersAdminView" component={allUsersAdminView} />
+            <Route path="/admin" component={allUsersAdminView} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
