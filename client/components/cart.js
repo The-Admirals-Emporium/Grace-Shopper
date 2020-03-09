@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { costDisplay } from './utils';
 import { Link } from 'react-router-dom';
-import Checkout from './checkout';
 
 // cart should be a stateless, functional component like grocery item in add groceries
 const Cart = props => {

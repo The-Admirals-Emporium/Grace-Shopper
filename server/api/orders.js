@@ -34,11 +34,16 @@ router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
 
     // create a sequelize boat, associate with order
     const boat = await Boat.findByPk(req.body.id);
+
     await updateMe.addBoat(boat);
     await updateMe.save();
 
-    // send back updated order
-    res.json(updateMe);
+    // Get and return new entry
+    const updatedMe = await Order.findByPk(pk, {
+      include: [{ model: Boat }],
+    });
+
+    res.json(updatedMe.dataValues);
   } catch (err) {
     next(err);
   }
