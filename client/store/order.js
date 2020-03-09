@@ -7,6 +7,7 @@ import history from '../history';
 const GET_CART = 'GET_CART';
 const GET_USER_CART = 'GET_USER_CART';
 const UPDATE_CART = 'UPDATE_CART';
+const UPDATE_USER_CART = 'UPDATE_USER_CART';
 /**
  * INITIAL STATE
  */
@@ -18,13 +19,13 @@ const defaultCart = { status: 'PENDING', boats: [] };
 const getCart = cart => ({ type: GET_CART, cart });
 const getUserCart = cart => ({ type: GET_USER_CART, cart });
 export const updateCart = boat => ({ type: UPDATE_CART, boat });
+export const updateUserCart = boat => ({ type: UPDATE_USER_CART, boat });
 
 /**
  * THUNK CREATORS
  */
 export const guestCart = () => async dispatch => {
   let cart;
-
   try {
     if (window.localStorage.getItem('cart')) {
       console.log(
@@ -48,22 +49,65 @@ export const guestCart = () => async dispatch => {
   }
 };
 
+export const userCart = user => async dispatch => {
+  let cart;
+  try {
+    let existingCart = await axios.get(`/api/users/${user.id}`);
+
+    if (existingCart.data) {
+      cart = existingCart.data;
+    } else {
+      let newCart = await axios.post('/api/orders'); // creates a new cart
+
+      cart = newCart.data;
+    }
+    dispatch(getUserCart(cart));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// TKTK rename thunks and action creators
+export const getUpdatedUserCart = (userId, orderId, boat) => async dispatch => {
+  try {
+    let updatedCart = await axios.put(`/api/orders/${userId}/${orderId}`, boat);
+
+    dispatch(getUserCart(updatedCart));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 /**
  * REDUCER
  */
-export default function(state = defaultCart, action) {
-  console.log(
-    'cart reducer received action',
-    action,
-    'with state',
-    defaultCart
-  );
+
+// reducer for user cart
+// TKTK combine into one reducer
+export const userOrder = (userOrderState = defaultCart, action) => {
+  switch (action.type) {
+    case GET_USER_CART:
+      return action.cart;
+    case UPDATE_USER_CART:
+      return {
+        ...userOrderState,
+        boats: [...userOrderState.boats, action.boat],
+      };
+    default:
+      return userOrderState;
+  }
+};
+
+// reducer for guest cart
+const guestOrder = (orderState = defaultCart, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart;
     case UPDATE_CART:
-      return { ...state, boats: [...state.boats, action.boat] };
+      return { ...orderState, boats: [...orderState.boats, action.boat] };
     default:
-      return state;
+      return orderState;
   }
-}
+};
+
+export default guestOrder;
