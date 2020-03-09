@@ -5,7 +5,6 @@ const { isSession, isAdmin } = require('./gateway.js');
 module.exports = router;
 
 router.get('/', isSession, async (req, res, next) => {
-  console.log('get route req is', req);
   try {
     const boats = await Boat.findAll({
       // explicitly select only fields we intend to display to all users
