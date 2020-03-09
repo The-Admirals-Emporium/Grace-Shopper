@@ -64,7 +64,6 @@ class SingleBoat extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('mapping state to props in single boat', state);
   return {
     boat: state.boat.singleBoat,
   };

@@ -5,6 +5,7 @@ import {
   increaseQuantity,
   decreaseQuantity,
   updateCart,
+  getUpdatedUserCart,
 } from '../store';
 import { Link } from 'react-router-dom';
 
@@ -13,15 +14,28 @@ import { costDisplay } from './utils';
 class BoatList extends Component {
   componentDidMount() {
     this.props.getAllBoats();
-    this.purchase = this.purchase.bind(this);
+    this.add = this.add.bind(this);
   }
-  purchase(boat) {
-    // fix this
-    this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component
-    this.props.addBoatToCart(boat);
+  add(boat) {
+    // this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component. Don't modify inventory until you checkout item
+
+    this.props.isLoggedIn
+      ? this.props.addBoatToUserCart(
+          this.props.user.id,
+          this.props.userCart.id,
+          boat
+        )
+      : this.props.addBoatToCart(boat);
+
     // TKTK reassign to local storage, async here?? here
   }
   render() {
+    if (this.props.isLoggedIn) {
+      console.log('re-rendering logged in cart', this.props.userCart);
+    } else {
+      console.log('re-rendering guest cart', this.props.cart);
+    }
+
     const { boats } = this.props;
     return (
       <div>
@@ -41,7 +55,7 @@ class BoatList extends Component {
                   disabled={!boat.inventory}
                   size="small"
                   color="primary"
-                  onClick={() => this.purchase(boat)}
+                  onClick={() => this.add(boat)}
                 >
                   Add
                 </button>
@@ -56,10 +70,12 @@ class BoatList extends Component {
 }
 
 const mapState = state => {
-  console.log(state);
   return {
     boats: state.boat.allBoats,
-    cart: state.cart,
+    user: state.user,
+    cart: state.order,
+    userCart: state.userOrder,
+    isLoggedIn: !!state.user.id,
   };
 };
 const mapDispatch = dispatch => {
@@ -68,6 +84,8 @@ const mapDispatch = dispatch => {
     increaseQuantity: id => dispatch(increaseQuantity(id)),
     decreaseQuantity: id => dispatch(decreaseQuantity(id)),
     addBoatToCart: boat => dispatch(updateCart(boat)),
+    addBoatToUserCart: (userId, cartId, boat) =>
+      dispatch(getUpdatedUserCart(userId, cartId, boat)),
   };
 };
 

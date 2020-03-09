@@ -15,7 +15,7 @@ import {
   LoginAndSecurity,
   UserOrders,
 } from './components';
-import { me, cart } from './store';
+import { me, guestCart } from './store';
 
 /**
  * COMPONENT
@@ -29,8 +29,6 @@ class Routes extends Component {
   render() {
     const { isLoggedIn } = this.props;
     const { isAdmin } = this.props;
-    const { cart } = this.props;
-    console.log('isAdmin: ', isAdmin);
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -54,13 +52,14 @@ class Routes extends Component {
             <Route path="/uorders" component={UserOrders} />
           </Switch>
         )}
-        {isAdmin && (
+
+        {isLoggedIn && isAdmin && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
-            {console.log('rendering the admin route...')}
-            <Route path="/admin" component={Admin} />
+            {/* Routes placed here are only available to logged in admins */}
+            <Route path="/allUsersAdminView" component={allUsersAdminView} />
           </Switch>
         )}
+
         {/* Displays our Login component as a fallback */}
         <Route
           exact
@@ -88,15 +87,16 @@ const mapState = state => {
     isAdmin: !!state.user.isAdmin,
     user: state.user,
     cart: state.order,
+    userCart: state.userOrder,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     loadInitialData(user) {
-      console.log('load initial data got user', user);
       dispatch(me());
-      dispatch(cart(user));
+
+      dispatch(guestCart());
     },
   };
 };
