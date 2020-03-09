@@ -6,6 +6,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 export default function PaymentForm() {
+  console.log('payment form');
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
