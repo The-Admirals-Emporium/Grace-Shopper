@@ -9,7 +9,6 @@ export { default as BoatList } from './boatList';
 export { default as SingleBoat } from './singleBoat';
 export { default as GuestHome } from './guest-home';
 export { default as Cart } from './cart';
-export { default as allUsersAdminView } from './allUsersAdminView';
 export { default as Payment } from './payment';
 export { default as UserProfile } from './userProfile';
 export { default as LoginAndSecurity } from './loginAndSecurity';
