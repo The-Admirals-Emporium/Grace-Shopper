@@ -15,7 +15,7 @@ import {
   LoginAndSecurity,
   UserOrders,
 } from './components';
-import { me, cart } from './store';
+import { me, guestCart } from './store';
 
 /**
  * COMPONENT
@@ -28,7 +28,6 @@ class Routes extends Component {
   render() {
     const { isLoggedIn } = this.props;
     const { isAdmin } = this.props;
-    const { cart } = this.props;
 
     return (
       <Switch>
@@ -87,15 +86,17 @@ const mapState = state => {
     isLoggedIn: !!state.user.id,
     user: state.user,
     cart: state.order,
+    userCart: state.userOrder,
+    isAdmin: state.user.isAdmin,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     loadInitialData(user) {
-      console.log('load initial data got user', user);
       dispatch(me());
-      dispatch(cart(user));
+
+      dispatch(guestCart());
     },
   };
 };
