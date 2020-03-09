@@ -22,9 +22,6 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
             Logout
           </a>
           <Link to="/cart">Cart</Link>
-          <Button color="inherit">
-            <Link to="/allUsersAdminView">Admin Panel</Link>
-          </Button>
         </div>
       ) : (
         <div>
@@ -49,6 +46,11 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => (
             </Toolbar>
           </AppBar>
         </div>
+      )}
+      {isLoggedIn && isAdmin && (
+        <Button color="inherit">
+          <Link to="/admin">Admin Panel</Link>
+        </Button>
       )}
     </nav>
     <hr />

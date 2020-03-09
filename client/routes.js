@@ -23,7 +23,6 @@ import { me, cart } from './store';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData(this.props.user);
-    console.log('This props user: ', this.props.user);
     // this.props.user is empty
   }
 
@@ -31,7 +30,9 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
     const { isAdmin } = this.props;
     const { cart } = this.props;
-
+    console.log('This props user: ', this.props.user);
+    console.log('This props: ', this.props);
+    console.log('isAdmin: ', isAdmin);
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -85,6 +86,7 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin,
     user: state.user,
     cart: state.order,
   };

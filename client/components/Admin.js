@@ -1,13 +1,8 @@
 import React, { Fragment } from 'react';
 import AllUsersAdminView from './AllUsersAdminView';
 
-const Admin = () => {
-  return (
-    <Fragment>
-      <p>Welcome, Admin</p>
-      <AllUsersAdminView />
-    </Fragment>
-  );
+const Admin = props => {
+  return <p>Welcome, Admin</p>;
 };
 
 export default Admin;
