@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, Order, Boat } = require('../db/models');
-const { isAdmin, isCorrectUser } = require('./gateway.js');
+const { isAdmin, isAdminOrCorrectUser } = require('./gateway.js');
 
 module.exports = router;
 
@@ -19,7 +19,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 });
 
 // TKTK move this to orders route
-router.get('/:id', isCorrectUser, async (req, res, next) => {
+router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     let order;
 
