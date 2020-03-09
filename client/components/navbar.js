@@ -24,10 +24,10 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
             </a>
             <Link to="/cart">Cart</Link>
             <Link to="/checkout">Checkout</Link>
-            <Link to="/admin-panel">Admin Panel</Link>
+            {/* <Link to="/admin-panel">Admin Panel</Link> */}
 
             {/* for testing purposes */}
-            {/* {isAdmin && <Link to="/admin-panel">Admin Panel</Link>} */}
+            {isAdmin && <Link to="/admin-panel">Admin Panel</Link>}
           </div>
         ) : (
           <div>

@@ -16,6 +16,7 @@ class AllUsersAdminView extends Component {
 
     return (
       <div>
+        <h1>All users: </h1>
         <ul>
           {users.map(user => {
             return (
@@ -31,6 +32,9 @@ class AllUsersAdminView extends Component {
             );
           })}
         </ul>
+        <h1>All products: </h1>
+
+        <h1>All carts: </h1>
       </div>
     );
   }

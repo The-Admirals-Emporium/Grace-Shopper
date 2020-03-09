@@ -62,7 +62,7 @@ class Routes extends Component {
             {/* Routes placed here are only available to logged in admins */}
 
             {/* commented out for testing purposes */}
-            {/* <Route exact path="/admin-panel" component={AllUsersAdminView} /> */}
+            <Route exact path="/admin-panel" component={AllUsersAdminView} />
           </Switch>
         )}
 
