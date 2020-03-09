@@ -25,6 +25,25 @@ router.get('/:id', isCorrectUser, async (req, res, next) => {
   }
 });
 
+router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
+  try {
+    const pk = +req.params.orderId;
+    let updateMe = await Order.findByPk(pk, {
+      include: [{ model: Boat }],
+    });
+
+    // create a sequelize boat, associate with order
+    const boat = await Boat.findByPk(req.body.id);
+    await updateMe.addBoat(boat);
+    await updateMe.save();
+
+    // send back updated order
+    res.json(updateMe);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.put('/:id/add', isCorrectUser, async (req, res, next) => {
   try {
     const order = await Order.create();

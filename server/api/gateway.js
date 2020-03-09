@@ -20,7 +20,8 @@ function getRoute(req) {
 
 function isCorrectUser(req, res, next) {
   const requesterId = req.user ? req.user.id : null;
-  const requestedId = req.params.id;
+  const requestedId = +req.params.id;
+
   if (requesterId === requestedId) {
     next();
   } else {

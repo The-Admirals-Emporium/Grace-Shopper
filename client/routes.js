@@ -17,7 +17,7 @@ import {
   Checkout,
   CheckoutNavbar,
 } from './components';
-import { me, cart } from './store';
+import { me, guestCart } from './store';
 
 /**
  * COMPONENT
@@ -30,7 +30,6 @@ class Routes extends Component {
   render() {
     const { isLoggedIn } = this.props;
     const { isAdmin } = this.props;
-    const { cart } = this.props;
 
     return (
       <Switch>
@@ -56,18 +55,14 @@ class Routes extends Component {
             <Route path="/uorders" component={UserOrders} />
           </Switch>
         )}
+
         {isLoggedIn && isAdmin && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
+            {/* Routes placed here are only available to logged in admins */}
             <Route path="/allUsersAdminView" component={allUsersAdminView} />
           </Switch>
         )}
-        {isLoggedIn && isAdmin && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/allUsersAdminView" component={allUsersAdminView} />
-          </Switch>
-        )}
+
         {/* Displays our Login component as a fallback */}
         <Route
           exact
@@ -94,15 +89,17 @@ const mapState = state => {
     isLoggedIn: !!state.user.id,
     user: state.user,
     cart: state.order,
+    userCart: state.userOrder,
+    isAdmin: state.user.isAdmin,
   };
 };
 
 const mapDispatch = dispatch => {
   return {
     loadInitialData(user) {
-      console.log('load initial data got user', user);
       dispatch(me());
-      dispatch(cart(user));
+
+      dispatch(guestCart());
     },
   };
 };

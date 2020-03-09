@@ -58,6 +58,52 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     <hr />
   </div>
 );
+const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
+  return (
+    <div>
+      <h1>Have Yachts</h1>
+      <nav>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            <Link to="/profile">Profile</Link>
+            <Link to="/boats">Boats</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+            <Link to="/cart">Cart</Link>
+            {isAdmin && <Link to="/allUsersAdminView">User Panel</Link>}
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <AppBar position="static">
+              <Toolbar>
+                <Button color="inherit">
+                  <Link to="/ghome">Home</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/boats">Boats</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/cart">Cart</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </div>
+        )}
+      </nav>
+      <hr />
+    </div>
+  );
+};
 
 /**
  * CONTAINER
@@ -65,6 +111,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
+    user: state.user,
+    isAdmin: state.user.isAdmin,
   };
 };
 

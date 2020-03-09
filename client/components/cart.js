@@ -1,17 +1,16 @@
 import Payment from './payment';
 import React from 'react';
+import { connect } from 'react-redux';
 import { costDisplay } from './utils';
 import { Link } from 'react-router-dom';
 import Checkout from './checkout';
 
 // cart should be a stateless, functional component like grocery item in add groceries
 const Cart = props => {
-  const cart = props.cart;
-  const localStorageCart = JSON.parse(window.localStorage.getItem('cart'));
+  // const localStorageCart = JSON.parse(window.localStorage.getItem('cart'));
+  // TKTK sync these?
 
-  if (cart !== localStorageCart) {
-    window.localStorage.setItem('cart', JSON.stringify(cart));
-  }
+  let cart = props.isLoggedIn ? props.userCart : props.cart;
 
   if (cart) {
     return (
@@ -25,12 +24,7 @@ const Cart = props => {
                 <p>Name: {boat.name}</p>
                 <p>Cost: {costDisplay(boat.cost)}</p>
                 <p>Quantity: to-do</p>
-                <button
-                  type="button"
-                  disabled={!boat.inventory}
-                  size="small"
-                  color="primary"
-                >
+                <button type="button" size="small" color="primary">
                   Remove
                 </button>
               </li>
@@ -55,4 +49,13 @@ const Cart = props => {
   }
 };
 
-export default Cart;
+const mapState = state => {
+  return {
+    isLoggedIn: !!state.user.id,
+    user: state.user,
+    cart: state.order,
+    userCart: state.userOrder,
+  };
+};
+
+export default connect(mapState)(Cart);
