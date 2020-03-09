@@ -25,3 +25,10 @@ export default class Payment extends React.Component {
     );
   }
 }
+
+const mapDispatch = dispatch => {
+  return {
+    increaseQuantity: id => dispatch(increaseQuantity(id)),
+    decreaseQuantity: id => dispatch(decreaseQuantity(id)),
+  };
+};

@@ -5,7 +5,9 @@ import history from '../history';
  * ACTION TYPES
  */
 const GET_CART = 'GET_CART';
+const GET_USER_CART = 'GET_USER_CART';
 const UPDATE_CART = 'UPDATE_CART';
+const UPDATE_USER_CART = 'UPDATE_USER_CART';
 /**
  * INITIAL STATE
  */
@@ -15,35 +17,62 @@ const defaultCart = { status: 'PENDING', boats: [] };
  * ACTION CREATORS
  */
 const getCart = cart => ({ type: GET_CART, cart });
+const getUserCart = cart => ({ type: GET_USER_CART, cart });
 export const updateCart = boat => ({ type: UPDATE_CART, boat });
+export const updateUserCart = boat => ({ type: UPDATE_USER_CART, boat });
 
 /**
  * THUNK CREATORS
  */
-export const cart = user => async dispatch => {
+export const guestCart = () => async dispatch => {
   let cart;
-
   try {
-    // switch to session storage
     if (window.localStorage.getItem('cart')) {
       console.log(
         'grabbing cart from window local storage',
         window.localStorage.getItem('cart')
       );
       cart = JSON.parse(window.localStorage.getItem('cart'));
-    } else if (!user.length) {
+    } else {
       // guest
 
-      let res = await axios.post('/api/orders'); // object
+      let res = await axios.post('/api/orders'); // creates a new cart
 
       cart = res.data;
 
       console.log('getting new cart template from database', cart);
       window.localStorage.setItem('cart', JSON.stringify(cart));
-    } else {
-      // user, load from database
     }
     dispatch(getCart(cart));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const userCart = user => async dispatch => {
+  let cart;
+  try {
+    let existingCart = await axios.get(`/api/users/${user.id}`);
+
+    if (existingCart.data) {
+      cart = existingCart.data;
+    } else {
+      let newCart = await axios.post('/api/orders'); // creates a new cart
+
+      cart = newCart.data;
+    }
+    dispatch(getUserCart(cart));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// TKTK rename thunks and action creators
+export const getUpdatedUserCart = (userId, orderId, boat) => async dispatch => {
+  try {
+    let updatedCart = await axios.put(`/api/orders/${userId}/${orderId}`, boat);
+
+    dispatch(getUserCart(updatedCart));
   } catch (err) {
     console.error(err);
   }
@@ -52,19 +81,33 @@ export const cart = user => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultCart, action) {
-  console.log(
-    'cart reducer received action',
-    action,
-    'with state',
-    defaultCart
-  );
+
+// reducer for user cart
+// TKTK combine into one reducer
+export const userOrder = (userOrderState = defaultCart, action) => {
+  switch (action.type) {
+    case GET_USER_CART:
+      return action.cart;
+    case UPDATE_USER_CART:
+      return {
+        ...userOrderState,
+        boats: [...userOrderState.boats, action.boat],
+      };
+    default:
+      return userOrderState;
+  }
+};
+
+// reducer for guest cart
+const guestOrder = (orderState = defaultCart, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart;
     case UPDATE_CART:
-      return { ...state, boats: [...state.boats, action.boat] };
+      return { ...orderState, boats: [...orderState.boats, action.boat] };
     default:
-      return state;
+      return orderState;
   }
-}
+};
+
+export default guestOrder;
