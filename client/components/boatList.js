@@ -39,6 +39,7 @@ class BoatList extends Component {
     }
 
     const { boats } = this.props;
+
     return (
       <div>
         <ul>
