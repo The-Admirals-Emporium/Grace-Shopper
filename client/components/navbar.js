@@ -23,6 +23,8 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
               Logout
             </a>
             <Link to="/cart">Cart</Link>
+            <Link to="/checkout">Checkout</Link>
+
             {isAdmin && <Link to="/allUsersAdminView">User Panel</Link>}
           </div>
         ) : (
@@ -38,6 +40,9 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin, user }) => {
                 </Button>
                 <Button color="inherit">
                   <Link to="/cart">Cart</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/checkout">Checkout</Link>
                 </Button>
                 <Button color="inherit">
                   <Link to="/login">Login</Link>
@@ -62,7 +67,7 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
     user: state.user,
-    isAdmin: state.user.isAdmin,
+    isAdmin: !!state.user.isAdmin,
   };
 };
 

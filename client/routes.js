@@ -15,6 +15,8 @@ import {
   UserProfile,
   LoginAndSecurity,
   UserOrders,
+  Checkout,
+  CheckoutNavbar,
 } from './components';
 import { me, guestCart } from './store';
 
@@ -24,12 +26,12 @@ import { me, guestCart } from './store';
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData(this.props.user);
+    // this.props.user is empty
   }
 
   render() {
     const { isLoggedIn } = this.props;
     const { isAdmin } = this.props;
-
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -43,6 +45,7 @@ class Routes extends Component {
           path="/cart"
           render={props => <Cart {...props} {...this.props} />}
         />
+        <Route exact path="/checkout" component={CheckoutNavbar} />
 
         {isLoggedIn && (
           <Switch>
@@ -85,10 +88,10 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin,
     user: state.user,
     cart: state.order,
     userCart: state.userOrder,
-    isAdmin: state.user.isAdmin,
   };
 };
 

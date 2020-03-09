@@ -15,5 +15,10 @@ export { default as Payment } from './payment';
 export { default as UserProfile } from './userProfile';
 export { default as LoginAndSecurity } from './loginAndSecurity';
 export { default as UserOrders } from './userOrders';
+export { default as Checkout } from './checkout';
+export { default as AddressForm } from './addressForm';
+export { default as PaymentForm } from './paymentForm';
+export { default as ReviewForm } from './review';
+export { default as CheckoutNavbar } from './checkoutNavbar';
 
 export { Login, Signup } from './auth-form';
