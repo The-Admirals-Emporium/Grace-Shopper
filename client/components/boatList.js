@@ -5,7 +5,7 @@ import {
   increaseQuantity,
   decreaseQuantity,
   updateCart,
-  updateUserCart,
+  getUpdatedUserCart,
 } from '../store';
 import { Link } from 'react-router-dom';
 
@@ -88,7 +88,7 @@ const mapDispatch = dispatch => {
     decreaseQuantity: id => dispatch(decreaseQuantity(id)),
     addBoatToCart: boat => dispatch(updateCart(boat)),
     addBoatToUserCart: (userId, cartId, boat) =>
-      dispatch(updateUserCart(userId, cartId, boat)),
+      dispatch(getUpdatedUserCart(userId, cartId, boat)),
   };
 };
 
