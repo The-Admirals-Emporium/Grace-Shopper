@@ -6,7 +6,7 @@ import { userCart } from '../store';
 /**
  * COMPONENT
  */
-class UserHome extends Component {
+export class UserHome extends Component {
   componentDidMount() {
     this.props.loadUserData(this.props.user);
   }
