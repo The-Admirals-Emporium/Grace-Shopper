@@ -22,7 +22,6 @@ class BoatList extends Component {
     // TKTK reassign to local storage, async here?? here
   }
   render() {
-    console.log('in all boats', this.props.boats);
     const { boats } = this.props;
     return (
       <div>

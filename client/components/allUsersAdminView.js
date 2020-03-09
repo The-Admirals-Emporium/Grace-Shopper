@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const AllUsersAdminView = props => {
-  // only fire thunk to populate users into Redux store if user is an admin
-  // map over users and display them to admin
+class AllUsersAdminView extends Component {
+  componentDidMount() {
+    this.props.getAllUsers();
+  }
 
-  // one solution:
-  // is session state is a user, ask them for a password
-  // password will be hashed and matched with database
-  // if password matches, then user isAdmin
-
-  return <p>Welcome, Admin</p>;
-};
+  render() {
+    const { users } = this.props;
+    return (
+      <ul>
+        {users.map(user => {
+          // <Link to={`/users/${user.id}`}>
+          return <li key={user.id}>user.name</li>;
+        })}
+      </ul>
+    );
+  }
+}
 
 export default AllUsersAdminView;
