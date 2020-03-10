@@ -26,12 +26,42 @@ router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
 });
 
 router.put(
+  '/:id/:orderId/removeBoat',
+  isAdminOrCorrectUser,
+  async (req, res, next) => {
+    try {
+      const orderId = +req.params.orderId;
+      let updateMe = await Order.findByPk(orderId, {
+        include: [{ model: Boat }],
+      });
+
+      const boatId = +req.body.id;
+      const dbBoat = await Boat.findByPk(boatId);
+
+      await updateMe.removeBoat(dbBoat);
+      updateMe.save();
+
+      // Get and return new entry
+      const updatedMe = await Order.findByPk(orderId, {
+        include: [{ model: Boat }],
+      });
+
+      console.log('updatedMe has boats', updatedMe.boats);
+
+      res.json(updatedMe.dataValues);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.put(
   '/:id/:orderId/addBoat',
   isAdminOrCorrectUser,
   async (req, res, next) => {
     try {
-      const pk = +req.params.orderId;
-      let updateMe = await Order.findByPk(pk, {
+      const orderId = +req.params.orderId;
+      let updateMe = await Order.findByPk(orderId, {
         include: [{ model: Boat }],
       });
 
@@ -54,7 +84,7 @@ router.put(
       await updateMe.save();
 
       // Get and return new entry
-      const updatedMe = await Order.findByPk(pk, {
+      const updatedMe = await Order.findByPk(orderId, {
         include: [{ model: Boat }],
       });
 
