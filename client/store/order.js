@@ -112,12 +112,16 @@ const guestOrder = (orderState = defaultCart, action) => {
         boat => boat.id === action.boat.id
       )[0];
 
+      let updatedBoats;
       if (hasBoat) {
         hasBoat.order_boats.quantity =
           hasBoat.order_boats.quantity + action.boat.order_boats.quantity;
+        updatedBoats = [...orderState.boats];
+      } else {
+        updatedBoats = [...orderState.boats, action.boat];
       }
 
-      return { ...orderState, boats: [...orderState.boats] };
+      return { ...orderState, boats: updatedBoats };
     }
     default:
       return orderState;
