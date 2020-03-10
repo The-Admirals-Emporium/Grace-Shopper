@@ -16,6 +16,9 @@ import {
   UserOrders,
   Checkout,
   CheckoutNavbar,
+  AdminAllUsers,
+  AdminAllProducts,
+  AdminAllOrders,
 } from './components';
 import { me, guestCart } from './store';
 
@@ -53,6 +56,9 @@ class Routes extends Component {
             <Route path="/profile" component={UserProfile} />
             <Route path="/security" component={LoginAndSecurity} />
             <Route path="/uorders" component={UserOrders} />
+            <Route path="/admin-users" component={AdminAllUsers} />
+            <Route path="/admin-products" component={AdminAllProducts} />
+            <Route path="/admin-orders" component={AdminAllOrders} />
             <Route exact path="/admin-panel" component={AllUsersAdminView} />
           </Switch>
         )}
@@ -62,6 +68,9 @@ class Routes extends Component {
             {/* Routes placed here are only available to logged in admins */}
 
             {/* commented out for testing purposes */}
+            <Route path="/admin-users" component={AdminAllUsers} />
+            <Route path="/admin-products" component={AdminAllProducts} />
+            <Route path="/admin-orders" component={AdminAllOrders} />
             <Route exact path="/admin-panel" component={AllUsersAdminView} />
           </Switch>
         )}
