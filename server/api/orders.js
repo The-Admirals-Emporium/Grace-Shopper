@@ -35,7 +35,7 @@ router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
     // create a sequelize boat, associate with order
     const boat = await Boat.findByPk(req.body.id);
 
-    await updateMe.addBoat(boat);
+    await updateMe.addBoat(boat, { through: { quantity: 2 } });
     await updateMe.save();
 
     // Get and return new entry
