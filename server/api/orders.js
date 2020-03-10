@@ -46,6 +46,8 @@ router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
 
     await updateMe.addBoat(dbBoat, { through: { quantity: boatQuantity } });
 
+    await updateMe.calculateTotal();
+
     await updateMe.save();
 
     // Get and return new entry
