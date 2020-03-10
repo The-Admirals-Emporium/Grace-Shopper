@@ -32,21 +32,25 @@ router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
       include: [{ model: Boat }],
     });
 
-    const boatId = req.body.id;
-    const hasBoat = updateMe.boats.filter(boat => boat.id === boatId);
-    const boat = await Boat.findByPk(boatId);
+    const boatId = +req.body.id;
+    const hasBoat = updateMe.boats.filter(boat => boat.id === boatId)[0];
 
-    const boatQuantity = req.body.quantity || 3;
+    const dbBoat = await Boat.findByPk(boatId);
+
+    let boatQuantity = req.body.quantity || 1;
 
     if (hasBoat) {
       console.log(
-        'order already has boat, just updating quantity to',
-        boatQuantity
+        'order already has boat, just incrementing',
+        hasBoat.order_boats.quantity,
+        'by',
+        req.body.quantity
       );
-      updateMe.removeBoat(boat);
+      await updateMe.removeBoat(dbBoat);
+      boatQuantity += hasBoat.order_boats.quantity;
     }
 
-    await updateMe.addBoat(boat, { through: { quantity: boatQuantity } });
+    await updateMe.addBoat(dbBoat, { through: { quantity: boatQuantity } });
 
     await updateMe.save();
 
