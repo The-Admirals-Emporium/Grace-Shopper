@@ -15,7 +15,7 @@ const Cart = props => {
     return (
       <div>
         <h3>Status: {cart.status}</h3>
-        <h3>Total: $ USD {cart.total}</h3>
+        <h3>Total: {costDisplay(cart.total)}</h3>
         <ul>
           {cart.boats.map(boat => {
             return (

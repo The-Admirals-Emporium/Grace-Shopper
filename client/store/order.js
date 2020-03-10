@@ -103,7 +103,6 @@ export const userOrder = (userOrderState = defaultCart, action) => {
 
 // reducer for guest cart
 const guestOrder = (orderState = defaultCart, action) => {
-  console.log('guest order received', action);
   switch (action.type) {
     case GET_CART:
       return action.cart;
