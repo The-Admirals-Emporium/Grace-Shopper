@@ -14,9 +14,12 @@ import { costDisplay } from './utils';
 // import { Button, TextField, GridList } from '@material-ui/core';
 
 class BoatList extends Component {
+  constructor() {
+    super();
+    this.add = this.add.bind(this);
+  }
   componentDidMount() {
     this.props.getAllBoats();
-    this.add = this.add.bind(this);
   }
   add(boat) {
     // this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component. Don't modify inventory until you checkout item
