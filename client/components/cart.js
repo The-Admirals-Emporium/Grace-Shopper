@@ -22,7 +22,7 @@ const Cart = props => {
               <li key={boat.id}>
                 <p>Name: {boat.name}</p>
                 <p>Cost: {costDisplay(boat.cost)}</p>
-                <p>Quantity: to-do</p>
+                <p>Quantity: {boat.order_boats.quantity}</p>
                 <button type="button" size="small" color="primary">
                   Remove
                 </button>

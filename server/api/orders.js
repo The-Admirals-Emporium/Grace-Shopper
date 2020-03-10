@@ -32,10 +32,26 @@ router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
       include: [{ model: Boat }],
     });
 
-    // create a sequelize boat, associate with order
-    const boat = await Boat.findByPk(req.body.id);
+    const boatId = +req.body.id;
+    const hasBoat = updateMe.boats.filter(boat => boat.id === boatId)[0];
 
-    await updateMe.addBoat(boat);
+    const dbBoat = await Boat.findByPk(boatId);
+
+    let boatQuantity = req.body.quantity || 1;
+
+    if (hasBoat) {
+      console.log(
+        'order already has boat, just incrementing',
+        hasBoat.order_boats.quantity,
+        'by',
+        req.body.quantity
+      );
+      await updateMe.removeBoat(dbBoat);
+      boatQuantity += hasBoat.order_boats.quantity;
+    }
+
+    await updateMe.addBoat(dbBoat, { through: { quantity: boatQuantity } });
+
     await updateMe.save();
 
     // Get and return new entry
