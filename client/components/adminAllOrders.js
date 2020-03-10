@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllOrders } from '../store';
 
@@ -29,6 +30,10 @@ class adminAllOrders extends Component {
             );
           })}
         </ul>
+
+        <Link to="/admin-panel">
+          <h2>Back to your admin panel</h2>
+        </Link>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllBoats, increaseQuantity, decreaseQuantity } from '../store';
-import { Link } from 'react-router-dom';
 import { costDisplay } from './utils';
 
 class adminAllProducts extends Component {
@@ -66,6 +66,10 @@ class adminAllProducts extends Component {
             );
           })}
         </ul>
+
+        <Link to="/admin-panel">
+          <h2>Back to your admin panel</h2>
+        </Link>
       </div>
     );
   }

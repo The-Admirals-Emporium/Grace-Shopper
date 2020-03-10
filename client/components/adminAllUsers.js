@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllUsers } from '../store';
 
@@ -11,6 +12,7 @@ class adminAllUsers extends Component {
   render() {
     console.log('in admin all users');
     const { users } = this.props;
+
     return (
       <div>
         <h1>All users: </h1>
@@ -26,6 +28,10 @@ class adminAllUsers extends Component {
             );
           })}
         </ul>
+
+        <Link to="/admin-panel">
+          <h2>Back to your admin panel</h2>
+        </Link>
       </div>
     );
   }
