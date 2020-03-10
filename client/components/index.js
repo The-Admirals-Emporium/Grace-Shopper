@@ -20,5 +20,8 @@ export { default as AddressForm } from './addressForm';
 export { default as PaymentForm } from './paymentForm';
 export { default as ReviewForm } from './review';
 export { default as CheckoutNavbar } from './checkoutNavbar';
+export { default as AdminAllUsers } from './adminAllUsers';
+export { default as AdminAllProducts } from './adminAllProducts';
+export { default as AdminAllOrders } from './adminAllOrders';
 
 export { Login, Signup } from './auth-form';
