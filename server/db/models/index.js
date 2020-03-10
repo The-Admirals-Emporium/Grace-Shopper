@@ -15,7 +15,12 @@ const OrderBoats = require('./orderboats');
 Order.prototype.calculateTotal = async function() {
   const boats = await this.getBoats();
 
-  this.total = boats.reduce((currTotal, boat) => currTotal + boat.cost, 0.0);
+  const updatedTotal = boats.reduce(
+    (currTotal, boat) => currTotal + boat.cost * boat.order_boats.quantity,
+    0.0
+  );
+
+  this.total = updatedTotal;
 };
 /**
  * We'll export all of our models here, so that any time a module needs a model,
