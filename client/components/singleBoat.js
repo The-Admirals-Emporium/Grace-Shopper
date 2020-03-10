@@ -65,10 +65,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getSingleBoat: id => dispatch(getSingleBoat(id)),
     addBoatToCart: boat => dispatch(updateCart(boat)),
-    addBoatToUserCart: (userId, cartId, boat) => {
-      console.log(userId, 'userId', cartId, 'cartId', boat);
-      dispatch(getUpdatedUserCart(userId, cartId, boat));
-    },
+    addBoatToUserCart: (userId, cartId, boat) =>
+      dispatch(getUpdatedUserCart(userId, cartId, boat)),
   };
 };
 
