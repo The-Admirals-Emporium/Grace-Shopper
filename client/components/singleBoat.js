@@ -1,32 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  getSingleBoat,
-  increaseQuantity,
-  decreaseQuantity,
-} from '../store/boat';
+import { getSingleBoat, updateCart, getUpdatedUserCart } from '../store';
 
 class SingleBoat extends Component {
   constructor() {
     super();
-    this.increase = this.increase.bind(this);
-    this.decrease = this.decrease.bind(this);
+    this.add = this.add.bind(this);
   }
   componentDidMount() {
     console.log('in single boat!');
     this.props.getSingleBoat(this.props.match.params.id);
   }
-  increase() {
-    this.props.increaseQuantity(this.props.match.params.id);
-  }
-  decrease() {
-    this.props.decreaseQuantity(this.props.match.params.id);
+  add(boat) {
+    // this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component. Don't modify inventory until you checkout item
+
+    // replace with selected quantity in a second
+    boat.order_boats = { quantity: 1 };
+
+    this.props.isLoggedIn
+      ? this.props.addBoatToUserCart(
+          this.props.user.id,
+          this.props.userCart.id,
+          boat
+        )
+      : this.props.addBoatToCart(boat);
+
+    // TKTK reassign to local storage, async here?? here
   }
   render() {
-    console.log('in single boat', this.props.boat);
     const { boat } = this.props;
-    const disableIncrease = boat.quantity === 100;
-    const disableDecrease = boat.quantity === 0;
+
     return (
       <div>
         <img src={boat.imageUrl} width="190" height="190" />
@@ -34,28 +37,14 @@ class SingleBoat extends Component {
         <h3>{boat.name}</h3>
         <h2>Description: </h2>
         <h3>{boat.description}</h3>
-        <h3>Quantity: </h3>
-        <h4>{boat.quantity}</h4>
+        <h3>Inventory: </h3>
+        <h4>{boat.inventory}</h4>
         <button
           type="button"
           size="small"
           color="primary"
-          disabled={disableDecrease}
-          onClick={this.decrease}
+          onClick={() => this.add(boat)}
         >
-          Decrease
-        </button>
-        <button
-          type="button"
-          size="small"
-          color="primary"
-          disabled={disableIncrease}
-          onClick={this.increase}
-        >
-          Increase
-        </button>
-
-        <button type="button" size="small" color="primary">
           Add to cart
         </button>
       </div>
@@ -66,14 +55,21 @@ class SingleBoat extends Component {
 const mapStateToProps = state => {
   return {
     boat: state.boat.singleBoat,
+    user: state.user,
+    cart: state.order,
+    userCart: state.userOrder,
+    isLoggedIn: !!state.user.id,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getSingleBoat: id => dispatch(getSingleBoat(id)),
-    increaseQuantity: id => dispatch(increaseQuantity(id)),
-    decreaseQuantity: id => dispatch(decreaseQuantity(id)),
+    addBoatToCart: boat => dispatch(updateCart(boat)),
+    addBoatToUserCart: (userId, cartId, boat) => {
+      console.log(userId, 'userId', cartId, 'cartId', boat);
+      dispatch(getUpdatedUserCart(userId, cartId, boat));
+    },
   };
 };
 
