@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Order, Boat, OrderBoats } = require('../db/models');
-const { isAdmin, isCorrectUser, isSession } = require('./gateway.js');
+const { isAdmin, isAdminOrCorrectUser, isSession } = require('./gateway.js');
 
 module.exports = router;
 
@@ -13,7 +13,7 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 });
 
-router.get('/:id', isCorrectUser, async (req, res, next) => {
+router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.id, {
       include: { model: Boat },
@@ -25,43 +25,77 @@ router.get('/:id', isCorrectUser, async (req, res, next) => {
   }
 });
 
-router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
-  try {
-    const pk = +req.params.orderId;
-    let updateMe = await Order.findByPk(pk, {
-      include: [{ model: Boat }],
-    });
+router.put(
+  '/:id/:orderId/removeBoat',
+  isAdminOrCorrectUser,
+  async (req, res, next) => {
+    try {
+      const orderId = +req.params.orderId;
+      let updateMe = await Order.findByPk(orderId, {
+        include: [{ model: Boat }],
+      });
 
-    const boatId = +req.body.id;
-    const hasBoat = updateMe.boats.filter(boat => boat.id === boatId)[0];
+      const boatId = +req.body.id;
+      const dbBoat = await Boat.findByPk(boatId);
 
-    const dbBoat = await Boat.findByPk(boatId);
-
-    let boatQuantity = req.body.order_boats.quantity || 1;
-
-    if (hasBoat) {
       await updateMe.removeBoat(dbBoat);
-      boatQuantity += hasBoat.order_boats.quantity;
+      updateMe.save();
+
+      // Get and return new entry
+      const updatedMe = await Order.findByPk(orderId, {
+        include: [{ model: Boat }],
+      });
+
+      console.log('updatedMe has boats', updatedMe.boats);
+
+      res.json(updatedMe.dataValues);
+    } catch (err) {
+      next(err);
     }
-
-    await updateMe.addBoat(dbBoat, { through: { quantity: boatQuantity } });
-
-    await updateMe.calculateTotal();
-
-    await updateMe.save();
-
-    // Get and return new entry
-    const updatedMe = await Order.findByPk(pk, {
-      include: [{ model: Boat }],
-    });
-
-    res.json(updatedMe.dataValues);
-  } catch (err) {
-    next(err);
   }
-});
+);
 
-router.put('/:id/add', isCorrectUser, async (req, res, next) => {
+router.put(
+  '/:id/:orderId/addBoat',
+  isAdminOrCorrectUser,
+  async (req, res, next) => {
+    try {
+      const orderId = +req.params.orderId;
+      let updateMe = await Order.findByPk(orderId, {
+        include: [{ model: Boat }],
+      });
+
+      const boatId = +req.body.id;
+      const hasBoat = updateMe.boats.filter(boat => boat.id === boatId)[0];
+
+      const dbBoat = await Boat.findByPk(boatId);
+
+      let boatQuantity = req.body.order_boats.quantity || 1;
+
+      if (hasBoat) {
+        await updateMe.removeBoat(dbBoat);
+        boatQuantity += hasBoat.order_boats.quantity;
+      }
+
+      await updateMe.addBoat(dbBoat, { through: { quantity: boatQuantity } });
+
+      await updateMe.calculateTotal();
+
+      await updateMe.save();
+
+      // Get and return new entry
+      const updatedMe = await Order.findByPk(orderId, {
+        include: [{ model: Boat }],
+      });
+
+      res.json(updatedMe.dataValues);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+router.put('/:id/add', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     const order = await Order.create();
     res.json(order);
@@ -70,7 +104,7 @@ router.put('/:id/add', isCorrectUser, async (req, res, next) => {
   }
 });
 
-router.put('/:id/subtract', isCorrectUser, async (req, res, next) => {
+router.put('/:id/subtract', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     const order = await Order.create();
     res.json(order);

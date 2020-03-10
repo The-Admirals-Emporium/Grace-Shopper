@@ -40,6 +40,7 @@ router.get('/:id', isSession, async (req, res, next) => {
   }
 });
 
+// this should be plugged in only for checkout
 router.put('/:id/increase', isSession, async (req, res, next) => {
   try {
     let increaseBoat = await Boat.findByPk(req.params.id);
@@ -51,6 +52,7 @@ router.put('/:id/increase', isSession, async (req, res, next) => {
   }
 });
 
+// this should be plugged in only for checkout
 router.put('/:id/decrease', isSession, async (req, res, next) => {
   try {
     let decreaseBoat = await Boat.findByPk(req.params.id);

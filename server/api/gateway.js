@@ -18,11 +18,11 @@ function getRoute(req) {
   return routeParts[routeParts.length - 1];
 }
 
-function isCorrectUser(req, res, next) {
+function isAdminOrCorrectUser(req, res, next) {
   const requesterId = req.user ? req.user.id : null;
   const requestedId = +req.params.id;
 
-  if (requesterId === requestedId) {
+  if (requesterId === requestedId || isAdmin(req, res, next)) {
     next();
   } else {
     res
@@ -42,4 +42,4 @@ function isSession(req, res, next) {
   }
 }
 
-module.exports = { isAdmin, isCorrectUser, isSession };
+module.exports = { isAdmin, isAdminOrCorrectUser, isSession };
