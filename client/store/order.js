@@ -84,6 +84,19 @@ export const getUpdatedUserCart = (userId, orderId, boat) => async dispatch => {
   }
 };
 
+export const getEditedUserCart = (userId, orderId, boat) => async dispatch => {
+  try {
+    let updatedCart = await axios.put(
+      `/api/orders/${userId}/${orderId}/removeBoat`,
+      boat
+    );
+
+    dispatch(updateUserCart(updatedCart.data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 /**
  * REDUCER
  */
