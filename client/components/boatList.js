@@ -47,8 +47,8 @@ class BoatList extends Component {
     const { boats } = this.props;
 
     return (
-      <div>
-        <ul>
+      <div className="allBoats">
+        <ul className="allBoats">
           {boats.map(boat => {
             return (
               <li key={boat.id}>
@@ -68,7 +68,6 @@ class BoatList extends Component {
                 >
                   Add
                 </button>
-                {/* add onclick func */}
               </li>
             );
           })}

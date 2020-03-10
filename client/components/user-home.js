@@ -16,11 +16,14 @@ export class UserHome extends Component {
 
     return (
       <div>
-        <h3>Welcome sailor, {email}!</h3>
-        <img
-          src="https://res.cloudinary.com/bluewater/image/fetch/w_auto,h_1200,c_lfill,g_auto,f_auto/https://www.bluewateryachting.com/_uploads/website/brokerage/yachts/original/20190809195847000000_2131.jpg"
-          size="100"
-        />
+        <center>
+          <h3>Welcome sailor, {email}!</h3>
+          <img
+            src="https://res.cloudinary.com/bluewater/image/fetch/w_auto,h_1200,c_lfill,g_auto,f_auto/https://www.bluewateryachting.com/_uploads/website/brokerage/yachts/original/20190809195847000000_2131.jpg"
+            width="660"
+            height="660"
+          />
+        </center>
       </div>
     );
   }
