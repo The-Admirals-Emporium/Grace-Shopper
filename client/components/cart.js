@@ -37,10 +37,9 @@ const Cart = props => {
               <h3>Status: {cart.status}</h3>
               <h3>Total: $ USD {cart.total}</h3>
               <TableRow>
-                <TableCell>Boat</TableCell>
+                <TableCell align="right">Boat</TableCell>
                 <TableCell align="right">Cost</TableCell>
-                <TableCell align="right">Add</TableCell>
-                <TableCell align="right">Subtract</TableCell>
+                <TableCell align="right">quantity</TableCell>
                 <TableCell align="right">Remove</TableCell>
               </TableRow>
             </TableHead>
@@ -54,14 +53,7 @@ const Cart = props => {
                       {costDisplay(boat.cost)}{' '}
                     </TableCell>
                     <TableCell align="right">
-                      <button type="button" size="small" color="primary">
-                        Add
-                      </button>
-                    </TableCell>
-                    <TableCell align="right">
-                      <button type="button" size="small" color="primary">
-                        Remove
-                      </button>
+                      Quantity: {boat.order_boats.quantity}
                     </TableCell>
                     <TableCell align="right">
                       <button type="button" size="small" color="primary">
@@ -74,7 +66,6 @@ const Cart = props => {
             </TableBody>
           </Table>
         </TableContainer>
-
         <h3>
           Buy now: <Payment />
         </h3>

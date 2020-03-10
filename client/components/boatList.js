@@ -5,7 +5,7 @@ import {
   increaseQuantity,
   decreaseQuantity,
   updateCart,
-  updateUserCart,
+  getUpdatedUserCart,
 } from '../store';
 import { Link } from 'react-router-dom';
 
@@ -14,12 +14,18 @@ import { costDisplay } from './utils';
 // import { Button, TextField, GridList } from '@material-ui/core';
 
 class BoatList extends Component {
+  constructor() {
+    super();
+    this.add = this.add.bind(this);
+  }
   componentDidMount() {
     this.props.getAllBoats();
-    this.add = this.add.bind(this);
   }
   add(boat) {
     // this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component. Don't modify inventory until you checkout item
+
+    // replace with selected quantity in a second
+    boat.order_boats = { quantity: 1 };
 
     this.props.isLoggedIn
       ? this.props.addBoatToUserCart(
@@ -88,7 +94,7 @@ const mapDispatch = dispatch => {
     decreaseQuantity: id => dispatch(decreaseQuantity(id)),
     addBoatToCart: boat => dispatch(updateCart(boat)),
     addBoatToUserCart: (userId, cartId, boat) =>
-      dispatch(updateUserCart(userId, cartId, boat)),
+      dispatch(getUpdatedUserCart(userId, cartId, boat)),
   };
 };
 

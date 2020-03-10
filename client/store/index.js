@@ -6,8 +6,16 @@ import user from './user';
 import users from './users';
 import boat from './boat';
 import order, { userOrder } from './order';
+import orders from './orders';
 
-const reducer = combineReducers({ user, users, boat, order, userOrder });
+const reducer = combineReducers({
+  user,
+  users,
+  boat,
+  order,
+  orders,
+  userOrder,
+});
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
@@ -18,3 +26,4 @@ export * from './user';
 export * from './boat';
 export * from './order';
 export * from './users';
+export * from './orders';
