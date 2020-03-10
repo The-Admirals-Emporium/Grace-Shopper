@@ -4,7 +4,7 @@ import { Checkout } from '.';
 class checkoutNavbar extends Component {
   render() {
     return (
-      <div>
+      <div className="checkoutNav">
         <Checkout />
       </div>
     );
