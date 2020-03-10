@@ -25,7 +25,7 @@ class BoatList extends Component {
     // this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component. Don't modify inventory until you checkout item
 
     // replace with selected quantity in a second
-    boat.quantity = 1;
+    boat.order_boats = { quantity: 1 };
 
     this.props.isLoggedIn
       ? this.props.addBoatToUserCart(

@@ -8,7 +8,6 @@ class SingleBoat extends Component {
     this.add = this.add.bind(this);
   }
   componentDidMount() {
-    console.log('in single boat!');
     this.props.getSingleBoat(this.props.match.params.id);
   }
   add(boat) {
