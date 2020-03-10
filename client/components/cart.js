@@ -39,7 +39,7 @@ const Cart = props => {
               <TableRow>
                 <TableCell align="right">Boat</TableCell>
                 <TableCell align="right">Cost</TableCell>
-                <TableCell align="right">quantity</TableCell>
+                <TableCell align="right">Quantity</TableCell>
                 <TableCell align="right">Remove</TableCell>
               </TableRow>
             </TableHead>
