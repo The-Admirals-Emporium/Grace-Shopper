@@ -21,12 +21,9 @@ router.get('/', isAdmin, async (req, res, next) => {
 // TKTK move this to orders route
 router.get('/:id', isCorrectUser, async (req, res, next) => {
   try {
-    // TKTK we could possibly use findOrCreate here
-    // TKTK calculate total
-    // TKTK through-table just send back quantity
+    let order;
 
-    // find an order that has boats
-    const order = await Order.findOne({
+    const existingOrder = await Order.findOne({
       where: {
         userId: +req.params.id,
         status: 'PENDING',
@@ -37,11 +34,28 @@ router.get('/:id', isCorrectUser, async (req, res, next) => {
       ],
     });
 
-    const cart = order.dataValues;
+    if (existingOrder) {
+      order = existingOrder;
+      await existingOrder.calculateTotal();
+    } else {
+      // create new order for user
+      const newOrder = await Order.create({
+        attributes: ['id', 'status', 'shippingAddress', 'total'],
+        include: [
+          { model: Boat, attributes: ['id', 'cost', 'name', 'imageUrl'] },
+        ],
+      });
 
-    //cart.calculateTotal()
+      // create associations
+      const user = await User.findByPk(+req.params.id);
+      await newOrder.setUser(user);
 
-    res.json(cart);
+      order = newOrder;
+    }
+
+    await order.save();
+
+    res.json(order.dataValues);
   } catch (err) {
     next(err);
   }

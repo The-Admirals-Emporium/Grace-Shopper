@@ -19,7 +19,10 @@ const defaultCart = { status: 'PENDING', boats: [] };
 const getCart = cart => ({ type: GET_CART, cart });
 const getUserCart = cart => ({ type: GET_USER_CART, cart });
 export const updateCart = boat => ({ type: UPDATE_CART, boat });
-export const updateUserCart = boat => ({ type: UPDATE_USER_CART, boat });
+export const updateUserCart = updatedUserOrder => ({
+  type: UPDATE_USER_CART,
+  updatedUserOrder,
+});
 
 /**
  * THUNK CREATORS
@@ -72,7 +75,7 @@ export const getUpdatedUserCart = (userId, orderId, boat) => async dispatch => {
   try {
     let updatedCart = await axios.put(`/api/orders/${userId}/${orderId}`, boat);
 
-    dispatch(getUserCart(updatedCart));
+    dispatch(updateUserCart(updatedCart.data));
   } catch (err) {
     console.error(err);
   }
@@ -90,8 +93,8 @@ export const userOrder = (userOrderState = defaultCart, action) => {
       return action.cart;
     case UPDATE_USER_CART:
       return {
-        ...userOrderState,
-        boats: [...userOrderState.boats, action.boat],
+        // replace with fresh copy of order
+        ...action.updatedUserOrder,
       };
     default:
       return userOrderState;
@@ -103,8 +106,22 @@ const guestOrder = (orderState = defaultCart, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart;
-    case UPDATE_CART:
-      return { ...orderState, boats: [...orderState.boats, action.boat] };
+    case UPDATE_CART: {
+      const hasBoat = orderState.boats.filter(
+        boat => boat.id === action.boat.id
+      )[0];
+
+      let updatedBoats;
+      if (hasBoat) {
+        hasBoat.order_boats.quantity =
+          hasBoat.order_boats.quantity + action.boat.order_boats.quantity;
+        updatedBoats = [...orderState.boats];
+      } else {
+        updatedBoats = [...orderState.boats, action.boat];
+      }
+
+      return { ...orderState, boats: updatedBoats };
+    }
     default:
       return orderState;
   }
