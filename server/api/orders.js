@@ -37,15 +37,9 @@ router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
 
     const dbBoat = await Boat.findByPk(boatId);
 
-    let boatQuantity = req.body.quantity || 1;
+    let boatQuantity = req.body.order_boats.quantity || 1;
 
     if (hasBoat) {
-      console.log(
-        'order already has boat, just incrementing',
-        hasBoat.order_boats.quantity,
-        'by',
-        req.body.quantity
-      );
       await updateMe.removeBoat(dbBoat);
       boatQuantity += hasBoat.order_boats.quantity;
     }
