@@ -25,7 +25,7 @@ router.get('/:id', isCorrectUser, async (req, res, next) => {
   }
 });
 
-router.put('/:id/:orderId', isCorrectUser, async (req, res, next) => {
+router.put('/:id/:orderId/addBoat', isCorrectUser, async (req, res, next) => {
   try {
     const pk = +req.params.orderId;
     let updateMe = await Order.findByPk(pk, {

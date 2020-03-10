@@ -73,7 +73,10 @@ export const userCart = user => async dispatch => {
 // TKTK rename thunks and action creators
 export const getUpdatedUserCart = (userId, orderId, boat) => async dispatch => {
   try {
-    let updatedCart = await axios.put(`/api/orders/${userId}/${orderId}`, boat);
+    let updatedCart = await axios.put(
+      `/api/orders/${userId}/${orderId}/addBoat`,
+      boat
+    );
 
     dispatch(updateUserCart(updatedCart.data));
   } catch (err) {
