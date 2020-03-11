@@ -57,7 +57,12 @@ const Cart = props => {
                       Quantity: {boat.order_boats.quantity}
                     </TableCell>
                     <TableCell align="right">
-                      <button type="button" size="small" color="primary">
+                      <button
+                        type="button"
+                        size="small"
+                        color="primary"
+                        onClick={() => props.remove(boat)}
+                      >
                         Remove
                       </button>
                     </TableCell>
