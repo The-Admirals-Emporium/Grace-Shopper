@@ -6,7 +6,6 @@ import { costDisplay } from './utils';
 
 class adminAllOrders extends Component {
   componentDidMount() {
-    console.log('in admin all orders');
     this.props.getAllOrders();
   }
   render() {
