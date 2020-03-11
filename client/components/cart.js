@@ -36,7 +36,7 @@ const Cart = props => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <h3>Status: {cart.status}</h3>
-              <h3>Total: $ USD {cart.total}</h3>
+              <h3>Total: {costDisplay(cart.total)}</h3>
               <TableRow>
                 <TableCell align="right">Boat</TableCell>
                 <TableCell align="right">Cost</TableCell>
