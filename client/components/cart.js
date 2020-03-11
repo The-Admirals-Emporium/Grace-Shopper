@@ -19,6 +19,7 @@ const Cart = props => {
   // TKTK sync these?
 
   console.log('cart received props', props);
+
   let cart = props.isLoggedIn ? props.userCart : props.cart;
 
   const useStyles = makeStyles({
@@ -86,13 +87,4 @@ const Cart = props => {
   }
 };
 
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id,
-    user: state.user,
-    cart: state.order,
-    userCart: state.userOrder,
-  };
-};
-
-export default connect(mapState)(Cart);
+export default Cart;
