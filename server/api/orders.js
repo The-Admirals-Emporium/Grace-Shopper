@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { Order, Boat, OrderBoats } = require('../db/models');
+const { Order, Boat } = require('../db/models');
 const { isAdmin, isAdminOrCorrectUser, isSession } = require('./gateway.js');
+const { changeBoatQuantity } = require('./utils');
 
 module.exports = router;
 
@@ -39,9 +40,8 @@ router.put(
       const dbBoat = await Boat.findByPk(boatId);
 
       await updateMe.removeBoat(dbBoat);
+      await updateMe.calculateTotal();
       await updateMe.save();
-
-      console.log('updateMe has boats', updateMe.boats);
 
       // Get and return new entry
       const updatedMe = await Order.findByPk(orderId, {
@@ -55,7 +55,7 @@ router.put(
   }
 );
 
-// TO DO -- consolidate this with other routes
+// TO DO -- streamline this with other routes
 router.put(
   '/:id/:orderId/:boatId/set',
   isAdminOrCorrectUser,
@@ -75,9 +75,7 @@ router.put(
       if (hasBoat) {
         await updateMe.removeBoat(dbBoat);
 
-        await updateMe.addBoat(dbBoat, { through: { quantity: quantity } });
-
-        await updateMe.save();
+        await changeBoatQuantity(updateMe, dbBoat, quantity);
 
         // Get and return new entry
         const updatedMe = await Order.findByPk(orderId, {
@@ -99,6 +97,8 @@ router.put(
   isAdminOrCorrectUser,
   async (req, res, next) => {
     try {
+      let quantity = req.body.order_boats.quantity || 1;
+
       const orderId = +req.params.orderId;
       let updateMe = await Order.findByPk(orderId, {
         include: [{ model: Boat }],
@@ -108,18 +108,17 @@ router.put(
       const hasBoat = updateMe.boats.filter(boat => boat.id === boatId)[0];
       const dbBoat = await Boat.findByPk(boatId);
 
-      let boatQuantity = req.body.order_boats.quantity || 1;
-
       if (hasBoat) {
         await updateMe.removeBoat(dbBoat);
-        boatQuantity += hasBoat.order_boats.quantity;
+
+        await changeBoatQuantity(
+          updateMe,
+          dbBoat,
+          quantity + hasBoat.order_boats.quantity
+        );
+      } else {
+        await changeBoatQuantity(updateMe, dbBoat, quantity);
       }
-
-      await updateMe.addBoat(dbBoat, { through: { quantity: boatQuantity } });
-
-      await updateMe.calculateTotal();
-
-      await updateMe.save();
 
       // Get and return new entry
       const updatedMe = await Order.findByPk(orderId, {
