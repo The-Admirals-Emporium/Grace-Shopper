@@ -82,7 +82,7 @@ class Routes extends Component {
           render={props => (
             <Fragment>
               <Login {...props} />
-              <BoatList />
+              {/* <BoatList /> */}
             </Fragment>
           )}
         />
