@@ -16,6 +16,22 @@ Have Yachts breaks that paradigm.
 
 ### Development and Scripts
 
+To get started, clone this repo, then run
+
+```
+npm install
+```
+
+to install the project and its dependencies.
+
+You will also want to install postgres locally, and provision postgres when you deploy remotely.
+
+To seed the database, run
+
+```
+npm run seed
+```
+
 The source code comes with several scripts defined in `package.json`.
 
 The high level scripts are:
@@ -53,13 +69,13 @@ We deployed to Heroku, but the same DevOps principles would have allowed us to d
 Here is how to bind configuration variables to the environment. In Heroku, or in Google OAuth, you will have to add the correct values, which are specific to that environment.
 
 - Create a file called `secrets.js` in the project root
-  - This file is listed in `.gitignore`, and will _only_ be required
-    in your _development_ environment
-  - Its purpose is to attach the secret environment variables that you
-    will use while developing
-  - However, it's **very** important that you **not** push it to
-    Github! Otherwise, _prying eyes_ will find your secret API keys!
-  - It might look like this:
+- This file is listed in `.gitignore`, and will _only_ be required
+  in your _development_ environment
+- Its purpose is to attach the secret environment variables that you
+  will use while developing
+- However, it's **very** important that you **not** push it to
+  Github! Otherwise, _prying eyes_ will find your secret API keys!
+- It might look like this:
 
 ```
 process.env.GOOGLE_CLIENT_ID = 'hush hush'
@@ -67,11 +83,14 @@ process.env.GOOGLE_CLIENT_SECRET = 'pretty secret'
 process.env.GOOGLE_CALLBACK = '/auth/google/callback'
 ```
 
+When you deploy your application to Heroku you need to set these values as configuration variables in your heroku app.
+
 ### OAuth
 
 - To use OAuth with Google, complete the steps above with a real client
   ID and client secret supplied from Google
-  - You can get them from the [Google APIs dashboard][google-apis].
+- You can get them from the [Google APIs dashboard][google-apis].
+- Don’t forget to add your callback URI for both your development environment (localhost:...) and well as for your deployed environment (heroku.<app-name>...) as authorized URLs in the application dashboard for your google project
 
 [google-apis]: https://console.developers.google.com/apis/credentials
 
@@ -79,7 +98,29 @@ process.env.GOOGLE_CALLBACK = '/auth/google/callback'
 
 We used Prettier with reasonable defaults, and automated ESLint running on commit to git.
 
-## Deployment
+# Highlighting Features
+
+## Guest Cart - Local Storage
+
+Guests can come to our website, browse boats, and add them to their cart without having to create an account. Their cart is persisted by local storage on the browser. So if guests are free to browse away and come back and continue shopping for yachts. Guests can also checkout without creating an account as covered in [Checkout Experience](#checkout-experience).
+
+## Logged-in User Experience
+
+Users who browse have-yachts have the option of creating an account, via email signup or Google OAuth. Users with an account can return at at any time to their pending orders, as their orders are persisted in our database. Users also have the option of viewing and editing their user profile and order history.
+
+## Database Schema
+
+Database interactions were handled via an ORM, [Sequelize]([https://sequelize.org/]). The app used three models, Users, Orders, and Boats, and the associations between them. Users can have many orders. Boats and orders have a many to many relationship. We managed the many-to-many association between boats and orders via a through table OrderBoats, that had an extra column, `quantity`, how many of a particular boat are associated with an order. We also created an instance method for the Order model, calculateTotal, that reported the total cost of all of boats in the order.
+
+## Checkout Experience
+
+The checkout experience is managed via a Stripe integration on the backend. Guests and logged in users can view the boats in their cart by selecting the Cart link in the NavBar, as well as remove or edit the quantity of the selected yachts. Users checkout via the `Proceed to Checkout` link at the bottom of the cart. This three-part form asks for shipping information, payment confirmation, and on order review.
+
+Logged-in users also have the one-click option to `Pay With Card`. Only credit card information and email address are requried. The user must have an account with have-yachts, as the email address is used to look up teh shipping address.
+
+## Admin Experience
+
+Have yachts provides dev support for admins. Admins can manage users, products, and orders via the admin panel. In particular, admins can manage the boat inventory through the UI. Additional functionality includes viewing and editing all existing users and orders. Only admins can see the Admin Panel in the UI. And securitization of our back-end guarantees that only admins can access the corresponding API routes.
 
 ### Heroku
 
@@ -91,15 +132,15 @@ We used Prettier with reasonable defaults, and automated ESLint running on commi
 
 - **If you are creating a new app...**
 
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno
+1.  `heroku create` or `heroku create your-app-name` if you have a
+    name in mind.
+2.  `heroku addons:create heroku-postgresql:hobby-dev` to add
+    ("provision") a postgres database to your heroku dyno
 
 - **If you already have a Heroku app...**
 
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
+1.  `heroku git:remote your-app-name` You'll need to be a
+    collaborator on the app.
 
 ### Travis
 
