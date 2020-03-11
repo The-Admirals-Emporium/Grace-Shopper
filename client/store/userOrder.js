@@ -8,6 +8,7 @@ const GET_CART = 'GET_CART';
 const GET_USER_CART = 'GET_USER_CART';
 const UPDATE_CART = 'UPDATE_CART';
 const UPDATE_USER_CART = 'UPDATE_USER_CART';
+const REMOVE_BOAT = 'REMOVE_BOAT';
 /**
  * INITIAL STATE
  */
@@ -19,6 +20,7 @@ const defaultCart = { status: 'PENDING', boats: [] };
 const getCart = cart => ({ type: GET_CART, cart });
 const getUserCart = cart => ({ type: GET_USER_CART, cart });
 export const updateCart = boat => ({ type: UPDATE_CART, boat });
+export const removeBoat = boat => ({ type: REMOVE_BOAT, boat });
 export const updateUserCart = updatedUserOrder => ({
   type: UPDATE_USER_CART,
   updatedUserOrder,
@@ -139,6 +141,13 @@ const guestOrder = (orderState = defaultCart, action) => {
   switch (action.type) {
     case GET_CART:
       return action.cart;
+    case REMOVE_BOAT: {
+      const updatedBoats = orderState.boats.filter(
+        boat => boat.id !== action.boat.id
+      );
+
+      return { ...orderState, boats: updatedBoats };
+    }
     case UPDATE_CART: {
       const hasBoat = orderState.boats.filter(
         boat => boat.id === action.boat.id
