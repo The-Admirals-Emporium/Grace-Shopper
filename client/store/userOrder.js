@@ -97,6 +97,23 @@ export const getEditedUserCart = (userId, orderId, boat) => async dispatch => {
   }
 };
 
+export const setUserCartQuantity = (
+  userId,
+  orderId,
+  boat,
+  quantity
+) => async dispatch => {
+  try {
+    let updatedCart = await axios.put(
+      `/api/orders/${userId}/${orderId}/${boat.id}/set?quantity=${quantity}`
+    );
+
+    dispatch(updateUserCart(updatedCart.data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 /**
  * REDUCER
  */
