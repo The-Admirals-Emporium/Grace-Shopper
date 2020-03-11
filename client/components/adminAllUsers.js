@@ -6,11 +6,9 @@ import { getAllUsers } from '../store';
 class adminAllUsers extends Component {
   componentDidMount() {
     this.props.getAllUsers();
-    console.log('hello', this.props.getAllUsers());
   }
 
   render() {
-    console.log('in admin all users');
     const { users } = this.props;
 
     return (
