@@ -100,12 +100,12 @@ export const getEditedUserCart = (userId, orderId, boat) => async dispatch => {
 export const setUserCartQuantity = (
   userId,
   orderId,
-  boat,
+  boatId,
   quantity
 ) => async dispatch => {
   try {
     let updatedCart = await axios.put(
-      `/api/orders/${userId}/${orderId}/${boat.id}/set?quantity=${quantity}`
+      `/api/orders/${userId}/${orderId}/${boatId}/set?quantity=${quantity}`
     );
 
     dispatch(updateUserCart(updatedCart.data));
