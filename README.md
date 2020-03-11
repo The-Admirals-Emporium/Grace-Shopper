@@ -1,6 +1,30 @@
-# Boilermaker - Joshua Skootsky, Tina Sosa, and Natasha Whitney.
+# Have Yachts
 
-## Scripts
+## (c) Admiral's Emporium, 2020
+
+### Tina Sosa, Joshua Skootsky, and Natasha Whitney
+
+#### Check out our deployed web app:
+
+[Have Yachts E-Commerce Site](https://have-yachts.herokuapp.com/ 'Have Yachts E-Commerce Site')
+
+#### Marketing copy:
+
+While E-Commerce expands, and customers increasingly believe that strangers will send them products in exchange for their credit card information, no one has yet integrated Stripe with a fully functional E-Commerce system to sell people boats.
+
+Have Yachts breaks that paradigm.
+
+### Development and Scripts
+
+The source code comes with several scripts defined in `package.json`.
+
+The high level scripts are:
+
+to start dev mode, serving up on localhost:8080 with webpack watching for changes:
+
+```
+npm run start-dev
+```
 
 To run tests while watching the code:
 
@@ -8,68 +32,26 @@ To run tests while watching the code:
 npm run test-watch
 ```
 
-to start dev:
+If you want to run the server and/or `webpack` separately, you can also
+`npm run start-server` and `npm run build-client`.
 
-```
-npm run start-dev
-```
+To manually deploy to Heroku, `npm run deploy`. See below for more details on setting up the deploy script.
 
-# BOATS ARE THE BEST
+### Built with Express, Sequelize, Postgres, React, and Redux
 
-_Good things come in pairs_
+This project uses Node.js and Express for the server, Sequelize as an ORM to talk to a Postgres database, React for display components, and Redux for managing state on the front end.
 
-Looking to mix up a backend with `express`/`sequelize` and a frontend with
-`react`/`redux`? That's `boilermaker`!
+### Twelve Factor Design
 
-Follow along with the boilerplate workshop to make your own! This canonical
-version can serve as a reference, or a starting point. For an in depth
-discussion into the code that makes up this repository, see the
-[Boilermaker Guided Tour][boilermaker-yt]
+This project uses the [Twelve Factor App](https://12factor.net/ 'Twelve Factor App') design principles. To quote the author, [Adam Wiggins](https://news.ycombinator.com/item?id=21416881 'Comment on Hacker News'):
 
-[boilermaker-yt]: https://www.youtube.com/playlist?list=PLx0iOsdUOUmn7D5XL4mRUftn8hvAJGs8H
+> I'm the author of 12factor (although really it is an aggregation of the work and insights from many people at Heroku). It continues to surprise and please me that this piece continues to be relevant eight years later—a virtual eternity in software/internet time.
+> Fun fact: I debated whether to call it "the Heroku way" or somesuch. Glad I went with a standalone name, feel like that allowed it to take on a life beyond that product. For example I doubt Google would have wanted a page about "Heroku Way app development on GCP" in their documentation. :-)
 
-## Setup
+We deployed to Heroku, but the same DevOps principles would have allowed us to deploy to AWS, Google Cloud, Microsoft Azure, or another cloud computing service.
 
-To use this as boilerplate, you'll need to take the following steps:
+Here is how to bind configuration variables to the environment. In Heroku, or in Google OAuth, you will have to add the correct values, which are specific to that environment.
 
-- Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
-- Run the following commands:
-
-```
-git remote add boilermaker https://github.com/FullstackAcademy/boilermaker.git
-git fetch boilermaker
-git merge boilermaker/master
-```
-
-Why did we do that? Because every once in a while, `boilermaker` may
-be updated with additional features or bug fixes, and you can easily
-get those changes from now on by entering:
-
-```
-git fetch boilermaker
-git merge boilermaker/master
-```
-
-## Customize
-
-Now that you've got the code, follow these steps to get acclimated:
-
-- Update project name and description in `package.json` and
-  `.travis.yml` files
-- `npm install`
-- Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-
-```
-export MY_APP_NAME=boilermaker
-createdb $MY_APP_NAME
-createdb $MY_APP_NAME-test
-```
-
-- By default, running `npm test` will use `boilermaker-test`, while
-  regular development uses `boilermaker`
 - Create a file called `secrets.js` in the project root
   - This file is listed in `.gitignore`, and will _only_ be required
     in your _development_ environment
@@ -93,41 +75,11 @@ process.env.GOOGLE_CALLBACK = '/auth/google/callback'
 
 [google-apis]: https://console.developers.google.com/apis/credentials
 
-## Linting
+## Linting and Style
 
-Linters are fundamental to any project. They ensure that your code
-has a consistent style, which is critical to writing readable code.
-
-Boilermaker comes with a working linter (ESLint, with
-`eslint-config-fullstack`) "out of the box." However, everyone has
-their own style, so we recommend that you and your team work out yours
-and stick to it. Any linter rule that you object to can be "turned
-off" in `.eslintrc.json`. You may also choose an entirely different
-config if you don't like ours:
-
-- [Standard style guide](https://standardjs.com/)
-- [Airbnb style guide](https://github.com/airbnb/javascript)
-- [Google style guide](https://google.github.io/styleguide/jsguide.html)
-
-## Start
-
-Running `npm run start-dev` will make great things happen!
-
-If you want to run the server and/or `webpack` separately, you can also
-`npm run start-server` and `npm run build-client`.
-
-From there, just follow your bliss.
+We used Prettier with reasonable defaults, and automated ESLint running on commit to git.
 
 ## Deployment
-
-Ready to go world wide? Here's a guide to deployment! There are two
-supported ways to deploy in Boilermaker:
-
-- automatically, via continuous deployment with Travis.
-- "manually", from your local machine via the `deploy` script.
-
-Either way, you'll need to set up your deployment server to start.
-The steps below are also covered in the CI/CD workshop.
 
 ### Heroku
 
@@ -204,10 +156,10 @@ above has failed.
 That's it! From now on, whenever `master` is updated on GitHub, Travis
 will automatically push the app to Heroku for you.
 
-### Cody's own deploy script
+### Deploy script
 
 Your local copy of the application can be pushed up to Heroku at will,
-using Boilermaker's handy deployment script:
+using the `npm run deploy` script mentioned above.
 
 1.  Make sure that all your work is fully committed and merged into your
     master branch on Github.
@@ -239,3 +191,5 @@ production server to be cluttered up with dev dependencies like
 git-tracking to be cluttered with production build files like
 `bundle.js`! By doing these steps, we make sure our development and
 production environments both stay nice and clean!
+
+It is also possible to set up Continuous Deployment from updates to master on Github.
