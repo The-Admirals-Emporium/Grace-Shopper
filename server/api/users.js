@@ -19,7 +19,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 });
 
 // TKTK move this to orders route
-router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try {
     let order;
 
@@ -39,7 +39,9 @@ router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
       await existingOrder.calculateTotal();
     } else {
       // create new order for user
-      const newOrder = await Order.create({
+      const newOrder = await Order.create();
+
+      const newOrderWithBoats = await Order.findByPk(newOrder.id, {
         attributes: ['id', 'status', 'shippingAddress', 'total'],
         include: [
           { model: Boat, attributes: ['id', 'cost', 'name', 'imageUrl'] },
@@ -48,9 +50,9 @@ router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
 
       // create associations
       const user = await User.findByPk(+req.params.id);
-      await newOrder.setUser(user);
+      await newOrderWithBoats.setUser(user);
 
-      order = newOrder;
+      order = newOrderWithBoats;
     }
 
     await order.save();

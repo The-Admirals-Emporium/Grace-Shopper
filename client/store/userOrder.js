@@ -55,18 +55,10 @@ export const guestCart = () => async dispatch => {
 };
 
 export const userCart = user => async dispatch => {
-  let cart;
   try {
-    let existingCart = await axios.get(`/api/users/${user.id}`);
+    let { data } = await axios.get(`/api/users/${user.id}`);
 
-    if (existingCart.data) {
-      cart = existingCart.data;
-    } else {
-      let newCart = await axios.post('/api/orders'); // creates a new cart
-
-      cart = newCart.data;
-    }
-    dispatch(getUserCart(cart));
+    dispatch(getUserCart(data));
   } catch (err) {
     console.error(err);
   }
