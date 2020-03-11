@@ -41,3 +41,18 @@ form button:disabled {
   display: flex;
   flex-wrap: wrap;
 }
+
+.allProducts {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.allOrders {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* .allUsers {
+  display: flex;
+  flex-wrap: wrap;
+} */
