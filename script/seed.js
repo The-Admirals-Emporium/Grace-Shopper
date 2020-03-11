@@ -213,7 +213,7 @@ var boatsWithOrdersData = boatNames
     name: name,
     description: '',
     imageUrl: imageUrls[ind],
-    cost: Math.floor(Math.random() * 1000000),
+    cost: Math.floor(Math.random() * 100000000),
     inventory: Math.floor(Math.random() * 100),
   }));
 
