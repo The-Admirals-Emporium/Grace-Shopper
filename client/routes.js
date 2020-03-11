@@ -14,21 +14,35 @@ import {
   UserProfile,
   LoginAndSecurity,
   UserOrders,
-  Checkout,
   CheckoutNavbar,
   AdminAllUsers,
   AdminAllProducts,
   AdminAllOrders,
 } from './components';
-import { me, guestCart } from './store';
+import { me, guestCart, getEditedUserCart } from './store';
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
+    console.log('routes received props', this.props);
     this.props.loadInitialData(this.props.user);
-    // this.props.user is empty
+    this.remove = this.remove.bind(this);
+  }
+
+  remove(boat) {
+    // this.props.decreaseQuantity(boat.id); // TKTK this should be moved to purchase component. Don't modify inventory until you checkout item
+
+    this.props.isLoggedIn
+      ? this.props.removeBoatFromUserCart(
+          this.props.user.id,
+          this.props.userCart.id,
+          boat
+        )
+      : this.props.addBoatToCart(boat);
+
+    // TKTK reassign to local storage, async here?? here
   }
 
   render() {
@@ -45,7 +59,9 @@ class Routes extends Component {
         <Route
           exact
           path="/cart"
-          render={props => <Cart {...props} {...this.props} />}
+          render={props => (
+            <Cart {...props} {...this.props} remove={this.remove} />
+          )}
         />
         <Route exact path="/checkout" component={CheckoutNavbar} />
 
@@ -113,6 +129,8 @@ const mapDispatch = dispatch => {
 
       dispatch(guestCart());
     },
+    removeBoatFromUserCart: (userId, cartId, boat) =>
+      dispatch(getEditedUserCart(userId, cartId, boat)),
   };
 };
 

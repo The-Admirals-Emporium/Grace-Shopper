@@ -5,7 +5,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import users from './users';
 import boat from './boat';
-import order, { userOrder } from './order';
+import order, { userOrder } from './userOrder';
 import orders from './orders';
 
 const reducer = combineReducers({
@@ -24,6 +24,6 @@ const store = createStore(reducer, middleware);
 export default store;
 export * from './user';
 export * from './boat';
-export * from './order';
+export * from './userOrder';
 export * from './users';
 export * from './orders';

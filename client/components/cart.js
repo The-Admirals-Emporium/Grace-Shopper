@@ -18,6 +18,8 @@ const Cart = props => {
   // const localStorageCart = JSON.parse(window.localStorage.getItem('cart'));
   // TKTK sync these?
 
+  console.log('cart received props', props);
+
   let cart = props.isLoggedIn ? props.userCart : props.cart;
 
   const useStyles = makeStyles({
@@ -35,7 +37,7 @@ const Cart = props => {
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <h3>Status: {cart.status}</h3>
-              <h3>Total: $ USD {cart.total}</h3>
+              <h3>Total: {costDisplay(cart.total)}</h3>
               <TableRow>
                 <TableCell align="right">Boat</TableCell>
                 <TableCell align="right">Cost</TableCell>
@@ -56,7 +58,12 @@ const Cart = props => {
                       Quantity: {boat.order_boats.quantity}
                     </TableCell>
                     <TableCell align="right">
-                      <button type="button" size="small" color="primary">
+                      <button
+                        type="button"
+                        size="small"
+                        color="primary"
+                        onClick={() => props.remove(boat)}
+                      >
                         Remove
                       </button>
                     </TableCell>
@@ -80,13 +87,4 @@ const Cart = props => {
   }
 };
 
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id,
-    user: state.user,
-    cart: state.order,
-    userCart: state.userOrder,
-  };
-};
-
-export default connect(mapState)(Cart);
+export default Cart;
