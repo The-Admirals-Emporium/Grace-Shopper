@@ -19,7 +19,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 });
 
 // TKTK move this to orders route
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     let order;
 
