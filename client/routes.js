@@ -19,7 +19,13 @@ import {
   AdminAllProducts,
   AdminAllOrders,
 } from './components';
-import { me, guestCart, getEditedUserCart, setUserCartQuantity } from './store';
+import {
+  me,
+  guestCart,
+  getEditedUserCart,
+  setUserCartQuantity,
+  removeBoat,
+} from './store';
 
 /**
  * COMPONENT
@@ -41,7 +47,7 @@ class Routes extends Component {
           this.props.userCart.id,
           boat
         )
-      : this.props.addBoatToCart(boat);
+      : this.props.removeBoatFromCart(boat);
 
     // TKTK reassign to local storage, async here?? here
   }
@@ -153,6 +159,7 @@ const mapDispatch = dispatch => {
 
       dispatch(guestCart(user));
     },
+    removeBoatFromCart: boat => dispatch(removeBoat(boat)),
     removeBoatFromUserCart: (userId, cartId, boat) =>
       dispatch(getEditedUserCart(userId, cartId, boat)),
     changeQuantityUserCart: (userId, cartId, boatId, quantity) =>
