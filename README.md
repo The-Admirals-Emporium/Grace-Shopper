@@ -8,6 +8,12 @@
 
 [Have Yachts E-Commerce Site](https://have-yachts.herokuapp.com/ 'Have Yachts E-Commerce Site')
 
+#### Marketing copy:
+
+While E-Commerce expands, and customers increasingly believe that strangers will send them products in exchange for their credit card information, no one has yet integrated Stripe with a fully functional E-Commerce system to sell people boats.
+
+Have Yachts breaks that paradigm.
+
 ### Development and Scripts
 
 To get started, clone this repo, then run
@@ -228,9 +234,3 @@ git-tracking to be cluttered with production build files like
 production environments both stay nice and clean!
 
 It is also possible to set up Continuous Deployment from updates to master on Github.
-
-#### Marketing copy:
-
-While E-Commerce expands, and customers increasingly believe that strangers will send them products in exchange for their credit card information, no one has yet integrated Stripe with a fully functional E-Commerce system to sell people boats.
-
-Have Yachts breaks that paradigm.
