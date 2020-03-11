@@ -55,7 +55,11 @@ const Cart = props => {
                       {costDisplay(boat.cost)}{' '}
                     </TableCell>
                     <TableCell align="right">
-                      Quantity: {boat.order_boats.quantity}
+                      Quantity:{' '}
+                      <select onChange={e => props.changeQuantity(e, boat.id)}>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                      </select>
                     </TableCell>
                     <TableCell align="right">
                       <button
