@@ -14,7 +14,6 @@ import {
   UserProfile,
   LoginAndSecurity,
   UserOrders,
-  Checkout,
   CheckoutNavbar,
   AdminAllUsers,
   AdminAllProducts,
