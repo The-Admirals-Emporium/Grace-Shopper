@@ -39,16 +39,55 @@ router.put(
       const dbBoat = await Boat.findByPk(boatId);
 
       await updateMe.removeBoat(dbBoat);
-      updateMe.save();
+      await updateMe.save();
+
+      console.log('updateMe has boats', updateMe.boats);
 
       // Get and return new entry
       const updatedMe = await Order.findByPk(orderId, {
         include: [{ model: Boat }],
       });
 
-      console.log('updatedMe has boats', updatedMe.boats);
-
       res.json(updatedMe.dataValues);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// TO DO -- consolidate this with other routes
+router.put(
+  '/:id/:orderId/:boatId/set',
+  isAdminOrCorrectUser,
+  async (req, res, next) => {
+    try {
+      let quantity = req.query.quantity;
+
+      const orderId = +req.params.orderId;
+      let updateMe = await Order.findByPk(orderId, {
+        include: [{ model: Boat }],
+      });
+
+      const boatId = +req.params.boatId;
+      const hasBoat = updateMe.boats.filter(boat => boat.id === boatId)[0];
+      const dbBoat = await Boat.findByPk(boatId);
+
+      if (hasBoat) {
+        await updateMe.removeBoat(dbBoat);
+
+        await updateMe.addBoat(dbBoat, { through: { quantity: quantity } });
+
+        await updateMe.save();
+
+        // Get and return new entry
+        const updatedMe = await Order.findByPk(orderId, {
+          include: [{ model: Boat }],
+        });
+
+        res.json(updatedMe.dataValues);
+      } else {
+        next(new Error(`boat ${boatId} does not exist for order ${orderId}`));
+      }
     } catch (err) {
       next(err);
     }
@@ -67,7 +106,6 @@ router.put(
 
       const boatId = +req.body.id;
       const hasBoat = updateMe.boats.filter(boat => boat.id === boatId)[0];
-
       const dbBoat = await Boat.findByPk(boatId);
 
       let boatQuantity = req.body.order_boats.quantity || 1;

@@ -55,7 +55,19 @@ const Cart = props => {
                       {costDisplay(boat.cost)}{' '}
                     </TableCell>
                     <TableCell align="right">
-                      Quantity: {boat.order_boats.quantity}
+                      Quantity:{' '}
+                      <select onChange={e => props.changeQuantity(e, boat.id)}>
+                        {[...Array(boat.order_boats.quantity).keys()].map(
+                          ind => (
+                            <option
+                              key={ind}
+                              value={boat.order_boats.quantity - ind}
+                            >
+                              {boat.order_boats.quantity - ind}
+                            </option>
+                          )
+                        )}
+                      </select>
                     </TableCell>
                     <TableCell align="right">
                       <button

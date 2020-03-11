@@ -19,7 +19,7 @@ import {
   AdminAllProducts,
   AdminAllOrders,
 } from './components';
-import { me, guestCart, getEditedUserCart } from './store';
+import { me, guestCart, getEditedUserCart, setUserCartQuantity } from './store';
 
 /**
  * COMPONENT
@@ -29,6 +29,7 @@ class Routes extends Component {
     console.log('routes received props', this.props);
     this.props.loadInitialData(this.props.user);
     this.remove = this.remove.bind(this);
+    this.changeQuantity = this.changeQuantity.bind(this);
   }
 
   remove(boat) {
@@ -43,6 +44,24 @@ class Routes extends Component {
       : this.props.addBoatToCart(boat);
 
     // TKTK reassign to local storage, async here?? here
+  }
+
+  changeQuantity(
+    event,
+    boatId,
+    userId = this.props.user.id,
+    orderId = this.props.userCart.id
+  ) {
+    let quantity = +event.target.value;
+
+    this.props.isLoggedIn
+      ? this.props.changeQuantityUserCart(
+          this.props.user.id,
+          this.props.userCart.id,
+          boatId,
+          quantity
+        )
+      : this.props.addBoatToCart(boatId);
   }
 
   render() {
@@ -60,7 +79,12 @@ class Routes extends Component {
           exact
           path="/cart"
           render={props => (
-            <Cart {...props} {...this.props} remove={this.remove} />
+            <Cart
+              {...props}
+              {...this.props}
+              remove={this.remove}
+              changeQuantity={this.changeQuantity}
+            />
           )}
         />
         <Route exact path="/checkout" component={CheckoutNavbar} />
@@ -127,10 +151,12 @@ const mapDispatch = dispatch => {
     loadInitialData(user) {
       dispatch(me());
 
-      dispatch(guestCart());
+      dispatch(guestCart(user));
     },
     removeBoatFromUserCart: (userId, cartId, boat) =>
       dispatch(getEditedUserCart(userId, cartId, boat)),
+    changeQuantityUserCart: (userId, cartId, boatId, quantity) =>
+      dispatch(setUserCartQuantity(userId, cartId, boatId, quantity)),
   };
 };
 
