@@ -6,7 +6,7 @@ import user from './user';
 import users from './users';
 import boat from './boat';
 import order, { userOrder } from './userOrder';
-import orders from './orders';
+import orders, { userOrders } from './orders';
 
 const reducer = combineReducers({
   user,
@@ -15,6 +15,7 @@ const reducer = combineReducers({
   order,
   orders,
   userOrder,
+  userOrders,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))

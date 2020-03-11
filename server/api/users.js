@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Order, Boat } = require('../db/models');
 const { isAdmin, isAdminOrCorrectUser } = require('./gateway.js');
+var Promise = require('bluebird');
 
 module.exports = router;
 
@@ -18,8 +19,28 @@ router.get('/', isAdmin, async (req, res, next) => {
   }
 });
 
-// TKTK move this to orders route
-router.get('/:id', async (req, res, next) => {
+router.get('/:id/orders', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(+req.params.id, {
+      include: [{ model: Order }],
+    });
+
+    const ordersWithBoats = await Promise.map(user.orders, async function(
+      order
+    ) {
+      const orderWithBoats = await Order.findByPk(order.id, {
+        include: [{ model: Boat }],
+      });
+      return orderWithBoats;
+    });
+
+    res.json(ordersWithBoats);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/:id', isAdminOrCorrectUser, async (req, res, next) => {
   try {
     let order;
 

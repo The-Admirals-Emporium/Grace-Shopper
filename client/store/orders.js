@@ -31,10 +31,9 @@ export const getAllOrders = () => async dispatch => {
   }
 };
 
-// route set up?
 export const getAllUserOrders = userId => async dispatch => {
   try {
-    const { data } = await axios.get('/api/orders');
+    const { data } = await axios.get(`/api/users/${userId}/orders`);
     dispatch(getUserOrders(data));
   } catch (error) {
     console.error(error);
