@@ -18,9 +18,16 @@ const Cart = props => {
   // const localStorageCart = JSON.parse(window.localStorage.getItem('cart'));
   // TKTK sync these?
 
-  console.log('cart received props', props);
-
   let cart = props.isLoggedIn ? props.userCart : props.cart;
+
+  if (!props.isLoggedIn) {
+    // calculate guest cart total
+    const updatedTotal = cart.boats.reduce(
+      (currTotal, boat) => currTotal + boat.cost * boat.order_boats.quantity,
+      0.0
+    );
+    cart.total = updatedTotal;
+  }
 
   const useStyles = makeStyles({
     table: {

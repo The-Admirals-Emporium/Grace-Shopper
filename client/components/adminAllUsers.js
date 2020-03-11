@@ -14,7 +14,7 @@ class adminAllUsers extends Component {
     return (
       <div>
         <h1>All users: </h1>
-        <ul>
+        <ul className="allUsers">
           {users.map(user => {
             return (
               <li key={user.id}>

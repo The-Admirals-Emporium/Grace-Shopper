@@ -29,7 +29,7 @@ class adminAllProducts extends Component {
     return (
       <div>
         <h1>All products: </h1>
-        <ul>
+        <ul className="allProducts">
           {boats.map(boat => {
             return (
               <li key={boat.id}>
