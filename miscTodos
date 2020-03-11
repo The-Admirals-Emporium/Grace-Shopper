@@ -1,0 +1,23 @@
+Cart misc improvements
+- single boat, parameters passed from route? (DRY)
+- boat list, parameters passed from route? (DRY)
+- multiple refreshes ... 
+- select quantity of boat (defaulting to 1) 
+
+Cart bugs
+- guest cart not working on heroku (/auth/me 503; guest cart empty throws error) 
+- guest cart not being saved to local storage
+- user cart not being saved on refresh 
+- re-rendering get_user on refresh
+- user can select more boats than there are in inventory
+
+Cart features
+- customers can remove boats from cart
+- customers can edit boat quantities in cart
+
+Cart tests
+- they dont exist 
+
+Cart done
+- cart total not loading
+
