@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: #cbf7ed;
 }
 
 a {
@@ -22,4 +23,21 @@ form div {
 
 form button:disabled {
   background-color: #ccc;
+}
+
+.checkoutNav {
+  background-color: #cbf7ed;
+}
+
+.nav {
+  background-color: #a9cef4;
+}
+
+.signinbackground {
+  background-color: #406e8e;
+}
+
+.allBoats {
+  display: flex;
+  flex-wrap: wrap;
 }

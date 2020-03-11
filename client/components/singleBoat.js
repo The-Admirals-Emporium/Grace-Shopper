@@ -31,21 +31,23 @@ class SingleBoat extends Component {
 
     return (
       <div>
-        <img src={boat.imageUrl} width="190" height="190" />
-        <h2>Name: </h2>
-        <h3>{boat.name}</h3>
-        <h2>Description: </h2>
-        <h3>{boat.description}</h3>
-        <h3>Inventory: </h3>
-        <h4>{boat.inventory}</h4>
-        <button
-          type="button"
-          size="small"
-          color="primary"
-          onClick={() => this.add(boat)}
-        >
-          Add to cart
-        </button>
+        <center>
+          <img src={boat.imageUrl} width="190" height="190" />
+          <h2>Name: </h2>
+          <h3>{boat.name}</h3>
+          <h2>Description: </h2>
+          <h3>{boat.description}</h3>
+          <h3>Inventory: </h3>
+          <h4>{boat.inventory}</h4>
+          <button
+            type="button"
+            size="small"
+            color="primary"
+            onClick={() => this.add(boat)}
+          >
+            Add to cart
+          </button>
+        </center>
       </div>
     );
   }
