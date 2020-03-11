@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAllOrders } from '../store';
+import { costDisplay } from './utils';
 
 class adminAllOrders extends Component {
   componentDidMount() {
-    console.log('in admin all orders');
     this.props.getAllOrders();
   }
   render() {
@@ -25,7 +25,7 @@ class adminAllOrders extends Component {
                 <h2>Order status: </h2>
                 <h3>{order.status}</h3>
                 <h2>Order total: </h2>
-                <h3>{order.total}</h3>
+                <h3>{costDisplay(order.total)}</h3>
               </li>
             );
           })}

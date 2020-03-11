@@ -15,20 +15,16 @@ class adminAllProducts extends Component {
     this.props.getAllBoats();
   }
 
-  increase() {
-    this.props.increaseQuantity(this.props.match.params.id);
+  increase(boatId) {
+    this.props.increaseQuantity(boatId);
   }
-  decrease() {
-    this.props.decreaseQuantity(this.props.match.params.id);
+  decrease(boatId) {
+    this.props.decreaseQuantity(boatId);
   }
   render() {
     const { boats } = this.props;
     const disableIncrease = boats.quantity === 100;
     const disableDecrease = boats.quantity === 0;
-
-    // console.log('state', this.state);
-    console.log('in admin panel');
-    console.log('users', this.props.users);
 
     return (
       <div>
@@ -49,7 +45,7 @@ class adminAllProducts extends Component {
                   size="small"
                   color="primary"
                   disabled={disableDecrease}
-                  onClick={this.decrease}
+                  onClick={() => this.decrease(boat.id)}
                 >
                   Decrease
                 </button>
@@ -58,7 +54,7 @@ class adminAllProducts extends Component {
                   size="small"
                   color="primary"
                   disabled={disableIncrease}
-                  onClick={this.increase}
+                  onClick={() => this.increase(boat.id)}
                 >
                   Increase
                 </button>
