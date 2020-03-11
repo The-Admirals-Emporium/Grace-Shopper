@@ -2,11 +2,18 @@ const router = require('express').Router();
 const { Order, Boat, OrderBoats } = require('../db/models');
 const { isAdmin, isAdminOrCorrectUser, isSession } = require('./gateway.js');
 
+var Promise = require('bluebird');
+
 module.exports = router;
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
     const orders = await Order.findAll();
+    await Promise.map(orders, async function(order) {
+      await order.calculateTotal();
+      await order.save();
+      return order;
+    });
     res.json(orders);
   } catch (err) {
     next(err);
