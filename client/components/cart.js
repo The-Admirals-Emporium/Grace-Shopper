@@ -18,6 +18,7 @@ const Cart = props => {
   // const localStorageCart = JSON.parse(window.localStorage.getItem('cart'));
   // TKTK sync these?
 
+  console.log('cart received props', props);
   let cart = props.isLoggedIn ? props.userCart : props.cart;
 
   const useStyles = makeStyles({
