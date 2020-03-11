@@ -14,7 +14,7 @@ class adminAllOrders extends Component {
     return (
       <div>
         <h1>All carts: </h1>
-        <ul>
+        <ul className="allOrders">
           {orders.map(order => {
             return (
               <li key={order.id}>
